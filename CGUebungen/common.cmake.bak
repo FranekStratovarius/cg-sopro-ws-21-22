@@ -1,0 +1,87 @@
+#CMAKE den Pfad zu Qt mitteilen
+#Der Pfad zu den dlls muss unter Windows noch in PATH geschrieben werden
+#also z.B.: C:\Qt\6.2.0\msvc2019_64\bin
+if(WIN32)
+    set(CMAKE_PREFIX_PATH  "C:/Qt/6.2.0/msvc2019_64/lib/cmake")
+else()
+    set(CMAKE_PREFIX_PATH  "/home/benne/Qt/6.2.0/gcc_64/lib/cmake")
+endif()
+message("Looking for Qt in ${CMAKE_PREFIX_PATH}")
+
+# Qt automatische Generierung aus qrc, ui, etc.
+# Muss außerhalb der Funktion unten sein (warum auch immer)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+find_package(Qt6 COMPONENTS Core Gui Widgets OpenGL Multimedia Xml OpenGLWidgets REQUIRED)
+
+function(setup_project projectname)
+
+    project(projectname)
+
+    #Library-Ordner finden und setzen, CMAKE Ordner ausschließen, sonst findet man unter Windows im build-Dir
+    find_path(SGFrameworkInclude NAMES "SGFrameworkLib" 
+    PATHS 
+    "${CMAKE_SOURCE_DIR}/../CGUebungen"
+    "${CMAKE_SOURCE_DIR}/../../CGUebungen"
+    "${CMAKE_SOURCE_DIR}/../../../CGUebungen"
+    "${CMAKE_SOURCE_DIR}/../../../"
+    "${CMAKE_SOURCE_DIR}/../.."
+    "${CMAKE_SOURCE_DIR}/.." 
+    "${CMAKE_SOURCE_DIR}" 
+    NO_CACHE
+    REQUIRED
+    NO_DEFAULT_PATH
+    NO_PACKAGE_ROOT_PATH
+    NO_CMAKE_PATH
+    NO_CMAKE_ENVIRONMENT_PATH
+    NO_SYSTEM_ENVIRONMENT_PATH
+    NO_CMAKE_SYSTEM_PATH)
+    set(SGFrameworkInclude ${SGFrameworkInclude}/SGFrameworkLib)
+    message("Found headers in ${SGFrameworkInclude}")
+
+    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+    file(GLOB_RECURSE header_project "${PROJECT_SOURCE_DIR}/*.h")
+    list(FILTER header_project EXCLUDE REGEX ".*/build.*")
+    file(GLOB_RECURSE headerpp_project "${PROJECT_SOURCE_DIR}/*.hpp")
+    list(FILTER headerpp_project EXCLUDE REGEX ".*/build.*")
+    file(GLOB_RECURSE src_project "${PROJECT_SOURCE_DIR}/*.cpp")
+    list(FILTER src_project EXCLUDE REGEX ".*/build.*")
+    file(GLOB_RECURSE ui_project "${PROJECT_SOURCE_DIR}/*.ui")
+    list(FILTER ui_project EXCLUDE REGEX ".*/build.*")
+    file(GLOB_RECURSE qrc_project "${PROJECT_SOURCE_DIR}/*.qrc")
+    list(FILTER qrc_project EXCLUDE REGEX ".*/build.*")
+    qt_add_resources(qrcfiles ${qrc_project})
+    #qt_wrap_ui(uifiles ${ui_project})
+    message("src_project: ${src_project}")
+    message("qrc_project: ${qrc_project}")
+    message("qrcfiles: ${qrcfiles}")
+
+    #Build und Source Dir inkludieren, um ggf. generierte Header aus ui-Files zu finden
+    message("Include ${CMAKE_CURRENT_BINARY_DIR} hinzufuegen")
+    include_directories(${CMAKE_CURRENT_BINARY_DIR})
+    message("Include ${PROJECT_SOURCE_DIR} hinzufuegen")
+    include_directories(${PROJECT_SOURCE_DIR})
+    
+    include_directories(${SGFrameworkInclude})
+
+    if (NOT TARGET SGFrameworkLib)
+        add_library(SGFrameworkLib STATIC IMPORTED)
+    endif()
+	#extra
+    set_target_properties(SGFrameworkLib PROPERTIES IMPORTED_LOCATION "${SGFrameworkInclude}/libSGFrameworkLib.a")
+    if(WIN32)
+        set_target_properties(SGFrameworkLib PROPERTIES IMPORTED_LOCATION_DEBUG "${SGFrameworkInclude}/Debug/SGFrameworkLib.lib")
+        set_target_properties(SGFrameworkLib PROPERTIES IMPORTED_LOCATION_RELEASE "${SGFrameworkInclude}/Release/SGFrameworkLib.lib")
+    endif()
+    link_directories(${SGFrameworkInclude})
+    link_directories(${where_are_qt_dlls})
+    add_executable(${projectname} ${src_project} ${headerpp_project}  ${header_project} ${uifiles} ${qrcfiles} ${uiproject})
+    target_link_libraries(${projectname} SGFrameworkLib)
+    target_link_libraries(${projectname} Qt6::Widgets Qt6::Core Qt6::Gui Qt6::OpenGL Qt6::Multimedia Qt6::Xml Qt6::OpenGLWidgets)
+    target_compile_definitions(${projectname} PUBLIC SRCDIR="${PROJECT_SOURCE_DIR}")
+
+endfunction()
