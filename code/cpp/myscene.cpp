@@ -32,6 +32,17 @@ Node* initScene1()
 {
 	Node* root = new Node();
 
+	Drawable* PlayerObject = new Drawable(new SimpleCube(1.0, 0.5, 1.0));
+
+	Color* c;
+	c = PlayerObject->getProperty<Color>();
+	c->setValue(1.0, 1.0, 0.0, 1.0);
+
+	Node* PlayerNode = new Node(PlayerObject);
+
+
+
+
 	//QImage* heightmap_image = new QImage("://images/sam.bmp");
 	//QImage* heightmap_image = new QImage("://images/sw.bmp");
 	//QImage* heightmap_image = new QImage("://images/terrain.bmp");
@@ -48,6 +59,8 @@ Node* initScene1()
 	std::cout << "height: " << height << std::endl;
 	*/
 
+
+
 	Heightmap* heightmap = new Heightmap(width,height,scale,heightmap_image);
 	heightmap->set_heightscale(10.f);
 	Drawable *heightmap_drawable = new Drawable(heightmap);
@@ -61,6 +74,9 @@ Node* initScene1()
 		'l','j',
 		'u','o'
 	);
+
+
+
 	kt_heightmap->setRotspeed(0.5f);
 	Transformation* heightmap_offset=new Transformation();
 	heightmap_offset->translate(
