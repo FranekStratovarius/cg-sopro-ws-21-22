@@ -19,5 +19,8 @@
 - statische und bewegbare elemente
 
 ## grafik (shader?):
+- phong lighting
+- durchschau-shader
 
 ## framework/hausmeister Louis:
+- character bouncing fixen
