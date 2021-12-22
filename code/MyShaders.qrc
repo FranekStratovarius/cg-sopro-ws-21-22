@@ -5,12 +5,5 @@
         <file>shaders/hello_glsl.frag</file>
         <file>shaders/wavemotion.vert</file>
         <file>shaders/common.vert.inc</file>
-        <file>images/logo.bmp</file>
-        <file>images/sam.bmp</file>
-        <file>images/sw.bmp</file>
-        <file>images/sw2.bmp</file>
-        <file>images/terrain.bmp</file>
-        <file>images/Katze.jpg</file>
-        <file>images/Katze.bmp</file>
     </qresource>
 </RCC>

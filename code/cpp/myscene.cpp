@@ -7,7 +7,6 @@
 #include "shadermanager.h"
 #include "keyboardtransformation.h"
 #include "modeltransformation.h"
-#include "headers/Heightmap.h"
 #include "simplecube.h"
 #include "color.h"
 
@@ -77,54 +76,8 @@ Node* initScene1()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
-	//QImage* heightmap_image = new QImage("://images/sam.bmp");
-	//QImage* heightmap_image = new QImage("://images/sw.bmp");
-	//QImage* heightmap_image = new QImage("://images/terrain.bmp");
-	//QImage* heightmap_image = new QImage("://images/logo.bmp");
-	QImage* heightmap_image = new QImage("://images/Katze.jpg");
-
-	unsigned int width = heightmap_image->width();
-	unsigned int height = heightmap_image->height();
-	unsigned int scale = (width>height) ? width : height;
-	float size = 10.f;
-
-
-
-
-	Heightmap* heightmap = new Heightmap(width,height,scale,heightmap_image);
-	heightmap->set_heightscale(10.f);
-	Drawable *heightmap_drawable = new Drawable(heightmap);
-	Shader *s = ShaderManager::getShader("://shaders/basiccolor.vert", "://shader/basic.frag");
-	heightmap_drawable->setShader(s);
-	heightmap_drawable->getProperty<ModelTransformation>()->scale(size/scale,size/scale,size/scale);
-
-	KeyboardTransformation *kt_heightmap = new KeyboardTransformation();
-	kt_heightmap->setRotKeys(
-		'k','i',
-		'l','j',
-		'u','o'
-	);
-
-
-
-	kt_heightmap->setRotspeed(0.5f);
-	Transformation* heightmap_offset=new Transformation();
-	heightmap_offset->translate(
-		(-size*(width<height ? width/(float)height : 1))/2,
-		0.0f,
-		(-size*(height<width ? height/(float)width : 1))/2
-	);
-	Node* node_kt_heightmap=new Node(kt_heightmap);
-	Node* node_heightmap_offset=new Node(heightmap_offset);
-
-	
-//-------------------------------------------------------------------------------------------------------------------------------------------------------
-
 	Drawable* plane = new Drawable(new SimplePlane(10,10));
 	Node* planeNode = new Node(plane);
-
-
 
 	plane->getProperty<ModelTransformation>()->rotate(90, 1.f, 0.f, 0.f);
 	plane->setStaticGeometry(true);
@@ -134,16 +87,9 @@ Node* initScene1()
 	planePhys->setConstructionInfo(ConstructionInfo);
 	planePhys->registerPhysicObject();
 
-
 	c = plane->getProperty<Color>();
 	c->setValue(1.0, 0.0, 0.0, 1.0);
 
-
 	root->addChild(planeNode);
-
-
-	root->addChild(node_kt_heightmap);
-	node_kt_heightmap->addChild(node_heightmap_offset);
-	node_heightmap_offset->addChild(new Node(heightmap_drawable));
 	return (root);
 }
