@@ -1,9 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>shaders/basiccolor.vert</file>
-        <file>shaders/hello_glsl.vert</file>
-        <file>shaders/hello_glsl.frag</file>
-        <file>shaders/wavemotion.vert</file>
-        <file>shaders/common.vert.inc</file>
+        <file>shaders/basic.vert</file>
+        <file>shaders/basic.frag</file>
+        <file>shaders/transparent.frag</file>
+        <file>models/herz.obj</file>
+        <file>models/mondsichel.obj</file>
+        <file>models/pyramide.obj</file>
+        <file>models/stern.obj</file>
+        <file>models/wuerfel.obj</file>
     </qresource>
 </RCC>
