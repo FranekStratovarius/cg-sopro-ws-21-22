@@ -80,23 +80,42 @@ void CharacterTicker::doIt(){
 	}
 
 	if(keyIn->isKeyPressed('1')){
-		current_character=0;
+		aktuelle_form=0;
 	}
 	if(keyIn->isKeyPressed('2')){
-		current_character=1;
+		aktuelle_form=1;
 	}
 	if(keyIn->isKeyPressed('3')){
-		current_character=2;
+		aktuelle_form=2;
 	}
 	if(keyIn->isKeyPressed('4')){
-		current_character=3;
+		aktuelle_form=3;
 	}
 	if(keyIn->isKeyPressed('5')){
-		current_character=4;
+		aktuelle_form=4;
 	}
 
 	character->moveCharacter(time, v_MoveFlagsDynCh);
-	change_visibility(current_character);
+	change_visibility(aktuelle_form);
+
+	QVector3D position=character->getPosition3DVector();
+
+	//alle tore updaten
+	Torliste* aktuelles_tor=tore;
+	do{
+		aktuelles_tor->tor->update(position,aktuelle_form);
+		aktuelles_tor=aktuelles_tor->next;
+	}while(aktuelles_tor!=nullptr);
+
+	//alle trigger updaten
+	FormTriggerliste* aktueller_trigger=trigger;
+	do{
+		int form=aktueller_trigger->trigger->update(position);
+		if(form!=-1){	//falls brauchbare form zurückgegeben->form annehmen
+			aktuelle_form=form;
+		}
+		aktueller_trigger=aktueller_trigger->next;
+	}while(aktueller_trigger!=nullptr);
 }
 
 void CharacterTicker::change_visibility(int idx){
@@ -116,3 +135,14 @@ void CharacterTicker::change_visibility(int idx){
 		}
 	}
 }
+
+void CharacterTicker::register_tor(Tor* tor){
+	Torliste* lokale_torliste=new Torliste{tor,tore};
+	tore=lokale_torliste;
+}
+
+void CharacterTicker::register_trigger(FormTrigger* l_trigger){
+	FormTriggerliste* lokale_triggerliste=new FormTriggerliste{l_trigger,trigger};
+	trigger=lokale_triggerliste;
+}
+
