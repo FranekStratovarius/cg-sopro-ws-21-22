@@ -3,10 +3,37 @@
         <file>shaders/basic.vert</file>
         <file>shaders/basic.frag</file>
         <file>shaders/transparent.frag</file>
-        <file>models/herz.obj</file>
-        <file>models/mondsichel.obj</file>
-        <file>models/pyramide.obj</file>
-        <file>models/stern.obj</file>
-        <file>models/wuerfel.obj</file>
+        <file>models/spieler_meshes/herz.obj</file>
+        <file>models/spieler_meshes/mondsichel.obj</file>
+        <file>models/spieler_meshes/pyramide.obj</file>
+        <file>models/spieler_meshes/stern.obj</file>
+        <file>models/spieler_meshes/wuerfel.obj</file>
+        <file>models/level_static/Boden.obj</file>
+        <file>models/level_static/Grundwaende.obj</file>
+        <file>models/level_static/TorHinweisMond.obj</file>
+        <file>models/level_static/TorHinweisPyramide.obj</file>
+        <file>models/level_static/TorHinweisStern.obj</file>
+        <file>models/level_static/TorHinweisWuerfel.obj</file>
+        <file>models/blockaden/Blockade_Ende.obj</file>
+        <file>models/blockaden/Blockade_Mondsichel.obj</file>
+        <file>models/blockaden/Blockade_Pyramide.obj</file>
+        <file>models/blockaden/Blockade_Stern.obj</file>
+        <file>models/blockaden/Blockade_Wuerfel.obj</file>
+        <file>models/form_trigger/Herzform_Trigger.obj</file>
+        <file>models/form_trigger/Wuerfelform_Trigger.obj</file>
+        <file>models/R2/R2_Farbobjekt1.obj</file>
+        <file>models/R2/R2_Farbobjekt2.obj</file>
+        <file>models/R2/R2_Farbobjekt3.obj</file>
+        <file>models/R2/R2_Vorgabe1_Rot.obj</file>
+        <file>models/R2/R2_Vorgabe2_Gruen.obj</file>
+        <file>models/R2/R2_Vorgabe3_Blau.obj</file>
+        <file>models/R4/R4_Trigger1.obj</file>
+        <file>models/R4/R4_Trigger2.obj</file>
+        <file>models/R4/R4_Trigger3.obj</file>
+        <file>models/R2/TriggerBox.obj</file>
+        <file>models/R3/Sternenteil.obj</file>
+        <file>models/form_trigger/Mondsichelform_Trigger.obj</file>
+        <file>models/form_trigger/Pyramideform_Trigger.obj</file>
+        <file>models/form_trigger/Sternform_Trigger.obj</file>
     </qresource>
 </RCC>

@@ -16,15 +16,15 @@ CharacterTicker::CharacterTicker(Node* root,PhysicEngine* physics_engine):IdleOb
 
 	models=new Drawable*[5];
 
-	g=new TriangleMesh(":/models/wuerfel.obj");
+    g=new TriangleMesh(":/models/spieler_meshes/wuerfel.obj");
 	models[0]=new Drawable(g);
-	g=new TriangleMesh(":/models/pyramide.obj");
+    g=new TriangleMesh(":/models/spieler_meshes/pyramide.obj");
 	models[1]=new Drawable(g);
-	g=new TriangleMesh(":/models/mondsichel.obj");
+    g=new TriangleMesh(":/models/spieler_meshes/mondsichel.obj");
 	models[2]=new Drawable(g);
-	g=new TriangleMesh(":/models/stern.obj");
+    g=new TriangleMesh(":/models/spieler_meshes/stern.obj");
 	models[3]=new Drawable(g);
-	g=new TriangleMesh(":/models/herz.obj");
+    g=new TriangleMesh(":/models/spieler_meshes/herz.obj");
 	models[4]=new Drawable(g);
 
 	for(int i=0;i<5;i++){
@@ -41,7 +41,7 @@ CharacterTicker::CharacterTicker(Node* root,PhysicEngine* physics_engine):IdleOb
 
 	player_model=new Drawable(new SimpleCube(1.0,1.0,1.0));
 	modelTransform=player_model->getProperty<ModelTransformation>();
-	modelTransform->translate(0.f, 1.f, 0.f);
+    modelTransform->translate(0.f, 0.6f, 0.f);
 	player_model->setTransparent(true);
 	player_model->setShader(shader_transparent);
 	root->addChild(new Node(player_model));
@@ -49,8 +49,8 @@ CharacterTicker::CharacterTicker(Node* root,PhysicEngine* physics_engine):IdleOb
 	c->setValue(1.0,1.0,0.0,1.0);
 	character = physics_engine->createNewDynamicCharacterWithCam(player_model);
 	character->setCam(dynamic_cast<PhysicAccessableCamera*>(SceneManager::instance()->getActiveContext()->getCamera()));
-	character->setRelativeCamPosition(0.f, 4.f, 5.f);
-	character->setUpDownView(-30.0F);
+    character->setRelativeCamPosition(0.f, 7.f, 5.f);
+    character->setUpDownView(-50.0f);
 	player_model->getPhysicObject()->registerPhysicObject();
 
 	change_visibility(0);
