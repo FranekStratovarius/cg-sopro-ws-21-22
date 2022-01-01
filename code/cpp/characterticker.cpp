@@ -98,14 +98,14 @@ void CharacterTicker::doIt(){
 	character->moveCharacter(time, v_MoveFlagsDynCh);
 	change_visibility(aktuelle_form);
 
-	QVector3D position=character->getPosition3DVector();
-
 	//alle tore updaten
 	Torliste* aktuelles_tor=tore;
 	while(aktuelles_tor!=nullptr){
-		aktuelles_tor->tor->update(position,aktuelle_form);
+		aktuelles_tor->tor->update(aktuelle_form);
 		aktuelles_tor=aktuelles_tor->next;
 	}
+
+	QVector3D position=character->getPosition3DVector();
 
 	//alle trigger updaten
 	FormTriggerliste* aktueller_trigger=trigger;
