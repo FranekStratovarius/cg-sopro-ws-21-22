@@ -102,20 +102,20 @@ void CharacterTicker::doIt(){
 
 	//alle tore updaten
 	Torliste* aktuelles_tor=tore;
-	do{
+	while(aktuelles_tor!=nullptr){
 		aktuelles_tor->tor->update(position,aktuelle_form);
 		aktuelles_tor=aktuelles_tor->next;
-	}while(aktuelles_tor!=nullptr);
+	}
 
 	//alle trigger updaten
 	FormTriggerliste* aktueller_trigger=trigger;
-	do{
+	while(aktueller_trigger!=nullptr){
 		int form=aktueller_trigger->trigger->update(position);
 		if(form!=-1){	//falls brauchbare form zurückgegeben->form annehmen
 			aktuelle_form=form;
 		}
 		aktueller_trigger=aktueller_trigger->next;
-	}while(aktueller_trigger!=nullptr);
+	}
 }
 
 void CharacterTicker::change_visibility(int idx){
