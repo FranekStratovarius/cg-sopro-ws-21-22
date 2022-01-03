@@ -2,7 +2,24 @@
 #define TOR_H
 class Tor{
 	public:
-		void update(int current_character){
+		Tor(Transformation* node, float posY_input, int form) : tor_transform(node), posY(posY_input), tor_form(form) {};
+		void update(int spieler_form){ 
+            if (spieler_form == tor_form) {
+                if (posY == 0.7f) {
+                    tor_transform->translate(0, -10, 0);
+                    posY -= 10;
+                }
+            }
+            else {
+                if (posY == -10.7f) {
+                    tor_transform->translate(0, 10, 0);
+                    posY += 10;
+                }
+            }
 		};
+private:
+	Transformation* tor_transform; //Transformation Node des Tores in der Hierachie
+	float posY; //Höhe des Tores
+    int tor_form;
 };
 #endif

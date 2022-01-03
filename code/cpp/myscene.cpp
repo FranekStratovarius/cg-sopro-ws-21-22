@@ -11,13 +11,14 @@
 #include "color.h"
 
 #include "headers/characterticker.h"
+#include "headers/form_trigger.h"
+#include "headers/tor.h"
 
 Node* initScene1();
 
 void SceneManager::initScenes()
 {
 	PhysicAccessableCamera* cam = new PhysicAccessableCamera;
-
 	RenderingContext* myContext = new RenderingContext(cam);
 	unsigned int myContextNr = SceneManager::instance()->addContext(myContext);
 	unsigned int myScene = SceneManager::instance()->addScene(initScene1());
@@ -257,6 +258,7 @@ Node* initScene1()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //BLOCKADEN
+
     Drawable* wuerfelBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Wuerfel.obj"));
     Node* wuerfelBlockadeNode = new Node(wuerfelBlockade);
     c = wuerfelBlockade->getProperty<Color>();
@@ -267,6 +269,8 @@ Node* initScene1()
     wuerfelInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     wuerfelBlockadeObject->setConstructionInfo(wuerfelInfo);
     wuerfelBlockadeObject->registerPhysicObject();
+    Transformation* wuerfelBlockadeTrans= new Transformation();
+    Node* wuerfelBlockadeTransNode = new Node(wuerfelBlockadeTrans);
 
     Drawable* pyramideBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Pyramide.obj"));
     Node* pyramideBlockadeNode = new Node(pyramideBlockade);
@@ -278,6 +282,8 @@ Node* initScene1()
     pyramideInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     pyramideBlockadeObject->setConstructionInfo(pyramideInfo);
     pyramideBlockadeObject->registerPhysicObject();
+    Transformation* pyramideBlockadeTrans = new Transformation();
+    Node* pyramideBlockadeTransNode = new Node(pyramideBlockadeTrans);
 
     Drawable* mondBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Mondsichel.obj"));
     Node* mondBlockadeNode = new Node(mondBlockade);
@@ -289,6 +295,8 @@ Node* initScene1()
     mondInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     mondBlockadeObject->setConstructionInfo(mondInfo);
     mondBlockadeObject->registerPhysicObject();
+    Transformation* mondBlockadeTrans = new Transformation();
+    Node* mondBlockadeTransNode = new Node(mondBlockadeTrans);
 
     Drawable* sternBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Stern.obj"));
     Node* sternBlockadeNode = new Node(sternBlockade);
@@ -300,6 +308,8 @@ Node* initScene1()
     sternInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     sternBlockadeObject->setConstructionInfo(sternInfo);
     sternBlockadeObject->registerPhysicObject();
+    Transformation* stenrBlockadeTrans = new Transformation();
+    Node* sternBlockadeTransNode = new Node(sternBlockadeTrans);
 
     Drawable* endeBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Ende.obj"));
     Node* endeBlockadeNode = new Node(endeBlockade);
@@ -311,8 +321,41 @@ Node* initScene1()
     endeInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     endeBlockadeObject->setConstructionInfo(endeInfo);
     endeBlockadeObject->registerPhysicObject();
+    Transformation* endeBlockadeTrans = new Transformation();
+    Node* endeBlockadeTransNode = new Node(endeBlockadeTrans);
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------ -
+    //FORM-TRIGGER Positionen zuweisen und registrieren beim Charakter + TOR-Trigger
 
+    float bb = 0.7f; //Halbe Seitenlänge des Bounding-Box-Würfels
+
+   FormTrigger TriggerObj1 = new FormTrigger(QVector3D(68.9, 0.7, 27), 0, bb));
+   FormTrigger TriggerObj2 = new FormTrigger(QVector3D(-58, 0.7, -1.3), 1, bb));
+   FormTrigger TriggerObj3 = new FormTrigger(QVector3D(10.5, 0.7, -44), 1, bb);
+   FormTrigger TriggerObj4 = new FormTrigger(QVector3D(-73, -10.7, -57), 2, bb));
+   FormTrigger TriggerObj5 = new FormTrigger(QVector3D(27.8, 0.7, 42.7), 2, bb));
+   FormTrigger TriggerObj6 = new FormTrigger(QVector3D(72, -10.7, -21), 3, bb));
+   FormTrigger TriggerObj7 = new FormTrigger(QVector3D(38, 0.7, 27), 3, bb));
+   FormTrigger TriggerObj8 = new FormTrigger(QVector3D(-18.5, 0.7, -59.5), 4, bb));
+   spieler.register_trigger(*TriggerObj1);
+   spieler.register_trigger(*TriggerObj2);
+   spieler.register_trigger(*TriggerObj3);
+   spieler.register_trigger(*TriggerObj4);
+   spieler.register_trigger(*TriggerObj5);
+   spieler.register_trigger(*TriggerObj6);
+   spieler.register_trigger(*TriggerObj7);
+   spieler.register_trigger(*TriggerObj8);
+
+   Tor TorObj1 = new Tor(wurfelBlockadeTrans, 0.7f, 0);
+   Tor TorObj2 = new Tor(pyramideBlockadeTrans, 0.7f, 1);
+   Tor TorObj3 = new Tor(mondBlockadeTrans, 0.7f, 2);
+   Tor TorObj4 = new Tor(sternBlockadeTrans, 0.7f, 3);
+   Tor TorObj5 = new Tor(endeBlockadeTrans, 0.7f, 4);
+   spieler.register_tor(*TorObj1);
+   spieler.register_tor(*TorObj2);
+   spieler.register_tor(*TorObj3);
+   spieler.register_tor(*TorObj4);
+   spieler.register_tor(*TorObj5);
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //HIERACHIE
@@ -379,11 +422,16 @@ Node* initScene1()
     herzTriggerNode->addChild(herzTrigger);
 
         //Blockaden
-    root->addChild(wuerfelBlockadeNode);
-    root->addChild(pyramideBlockadeNode);
-    root->addChild(mondBlockadeNode);
-    root->addChild(sternBlockadeNode);
-    root->addChild(endeBlockadeNode);
+    root->addChild(wuerfelBlockadeTransNode);
+    root->addChild(pyramideBlockadeTransNode);
+    root->addChild(mondBlockadeTransNode);
+    root->addChild(sternBlockadeTransNode);
+    root->addChild(endeBlockadeTransNode);
+    wuerfelBlockadeTransNode->addChild(wuerfelBlockadeNode);
+    pyramideBlockadeTransNode->addChild(pyramideBlockadeNode);
+    mondBlockadeTransNode->addChild(mondBlockadeNode);
+    sternBlockadeTransNode->addChild(sternBlockadeNode);
+    endeBlockadeTransNode->addChild(endeBlockadeNode);
 
     return (root);
 }
