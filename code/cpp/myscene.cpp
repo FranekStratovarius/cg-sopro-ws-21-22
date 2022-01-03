@@ -308,7 +308,7 @@ Node* initScene1()
     sternInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     sternBlockadeObject->setConstructionInfo(sternInfo);
     sternBlockadeObject->registerPhysicObject();
-    Transformation* stenrBlockadeTrans = new Transformation();
+    Transformation* sternBlockadeTrans = new Transformation();
     Node* sternBlockadeTransNode = new Node(sternBlockadeTrans);
 
     Drawable* endeBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Ende.obj"));
@@ -329,33 +329,33 @@ Node* initScene1()
 
     float bb = 0.7f; //Halbe Seitenlänge des Bounding-Box-Würfels
 
-   FormTrigger TriggerObj1 = new FormTrigger(QVector3D(68.9, 0.7, 27), 0, bb));
-   FormTrigger TriggerObj2 = new FormTrigger(QVector3D(-58, 0.7, -1.3), 1, bb));
-   FormTrigger TriggerObj3 = new FormTrigger(QVector3D(10.5, 0.7, -44), 1, bb);
-   FormTrigger TriggerObj4 = new FormTrigger(QVector3D(-73, -10.7, -57), 2, bb));
-   FormTrigger TriggerObj5 = new FormTrigger(QVector3D(27.8, 0.7, 42.7), 2, bb));
-   FormTrigger TriggerObj6 = new FormTrigger(QVector3D(72, -10.7, -21), 3, bb));
-   FormTrigger TriggerObj7 = new FormTrigger(QVector3D(38, 0.7, 27), 3, bb));
-   FormTrigger TriggerObj8 = new FormTrigger(QVector3D(-18.5, 0.7, -59.5), 4, bb));
-   spieler.register_trigger(*TriggerObj1);
-   spieler.register_trigger(*TriggerObj2);
-   spieler.register_trigger(*TriggerObj3);
-   spieler.register_trigger(*TriggerObj4);
-   spieler.register_trigger(*TriggerObj5);
-   spieler.register_trigger(*TriggerObj6);
-   spieler.register_trigger(*TriggerObj7);
-   spieler.register_trigger(*TriggerObj8);
+   FormTrigger* TriggerObj1 = new FormTrigger(QVector3D(68.9, 0.7, 27), 0, bb);
+   FormTrigger* TriggerObj2 = new FormTrigger(QVector3D(-58, 0.7, -1.3), 1, bb);
+   FormTrigger* TriggerObj3 = new FormTrigger(QVector3D(10.5, 0.7, -44), 1, bb);
+   FormTrigger* TriggerObj4 = new FormTrigger(QVector3D(-73, -10.7, -57), 2, bb);
+   FormTrigger* TriggerObj5 = new FormTrigger(QVector3D(27.8, 0.7, 42.7), 2, bb);
+   FormTrigger* TriggerObj6 = new FormTrigger(QVector3D(72, -10.7, -21), 3, bb);
+   FormTrigger* TriggerObj7 = new FormTrigger(QVector3D(38, 0.7, 27), 3, bb);
+   FormTrigger* TriggerObj8 = new FormTrigger(QVector3D(-18.5, 0.7, -59.5), 4, bb);
+   spieler->register_trigger(TriggerObj1);
+   spieler->register_trigger(TriggerObj2);
+   spieler->register_trigger(TriggerObj3);
+   spieler->register_trigger(TriggerObj4);
+   spieler->register_trigger(TriggerObj5);
+   spieler->register_trigger(TriggerObj6);
+   spieler->register_trigger(TriggerObj7);
+   spieler->register_trigger(TriggerObj8);
 
-   Tor TorObj1 = new Tor(wurfelBlockadeTrans, 0.7f, 0);
-   Tor TorObj2 = new Tor(pyramideBlockadeTrans, 0.7f, 1);
-   Tor TorObj3 = new Tor(mondBlockadeTrans, 0.7f, 2);
-   Tor TorObj4 = new Tor(sternBlockadeTrans, 0.7f, 3);
-   Tor TorObj5 = new Tor(endeBlockadeTrans, 0.7f, 4);
-   spieler.register_tor(*TorObj1);
-   spieler.register_tor(*TorObj2);
-   spieler.register_tor(*TorObj3);
-   spieler.register_tor(*TorObj4);
-   spieler.register_tor(*TorObj5);
+   Tor* TorObj1 = new Tor(wuerfelBlockadeTrans, 0.7f, 0);
+   Tor* TorObj2 = new Tor(pyramideBlockadeTrans, 0.7f, 1);
+   Tor* TorObj3 = new Tor(mondBlockadeTrans, 0.7f, 2);
+   Tor* TorObj4 = new Tor(sternBlockadeTrans, 0.7f, 3);
+   Tor* TorObj5 = new Tor(endeBlockadeTrans, 0.7f, 4);
+   spieler->register_tor(TorObj1);
+   spieler->register_tor(TorObj2);
+   spieler->register_tor(TorObj3);
+   spieler->register_tor(TorObj4);
+   spieler->register_tor(TorObj5);
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //HIERACHIE

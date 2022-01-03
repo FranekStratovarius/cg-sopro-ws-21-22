@@ -1,5 +1,8 @@
 #ifndef TOR_H
 #define TOR_H
+
+#include "transformation.h"
+
 class Tor{
 	public:
 		Tor(Transformation* node, float posY_input, int form) : tor_transform(node), posY(posY_input), tor_form(form) {};
