@@ -123,6 +123,17 @@ void CharacterTicker::doIt(){
 		}
 		aktueller_trigger=aktueller_trigger->next;
 	}
+
+	//alle Sternteiltrigger updaten
+	SternteilTriggerListe* aktuelles_sternteil = sternteil;
+	while (aktuelles_sternteil != nullptr && sternteilRaetselgeloest == false) {
+		gesammelteSternteile += aktuelles_sternteil->trigger->update(position);
+		aktuelles_sternteil = aktuelles_sternteil->next;
+		if (gesammelteSternteile == 5) {
+			bool sternteilRaetselGeloest = true;
+			//Stern-Pickup transformieren hier
+		}
+	}
 }
 
 void CharacterTicker::change_visibility(int idx){
@@ -151,5 +162,9 @@ void CharacterTicker::register_tor(Tor* tor){
 void CharacterTicker::register_trigger(FormTrigger* l_trigger){
 	FormTriggerliste* lokale_triggerliste=new FormTriggerliste{l_trigger,trigger};
 	trigger=lokale_triggerliste;
-}
 
+void CharacterTicker::register_sternteil(SternTrigger* l_sternteil);
+{
+	SternteilTriggerliste* lokale_sternteiltriggerliste = new SternteilTriggerliste{ l_sternteil, sternteil};
+	sternteil = lokale_sternteiltriggerliste;
+}

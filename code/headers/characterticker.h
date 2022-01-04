@@ -16,6 +16,7 @@
 
 #include "tor.h"
 #include "form_trigger.h"
+#include "stern_trigger.h"
 
 struct Torliste{
 	Tor* tor;
@@ -27,6 +28,11 @@ struct FormTriggerliste{
 	FormTriggerliste* next;
 };
 
+struct SternteilTriggerListe {
+	SternTrigger* sternteil;
+	SternteilTriggerListe* next;
+};
+
 // Klasse um unsere beiden Charaktere zu steuern
 class CharacterTicker : public IdleObserver{
 	public:
@@ -34,12 +40,15 @@ class CharacterTicker : public IdleObserver{
 		void doIt();
 		void register_tor(Tor* tor);
 		void register_trigger(FormTrigger* trigger);
+		void register_sternteil(SternTrigger* sternteil);
 
 	private:
 		void change_visibility(int idx);
 
 		DynamicCharacterWithCam* character;
-		int aktuelle_form=0;
+		int aktuelle_form = 0;
+		int gesammelteSternteile = 0;
+		bool sternteilRaetselGeloest = false;
 		// Timer für genaue Delta Zeitberechnung
 		QElapsedTimer m_Timer;
 		QTimer* a;
@@ -64,6 +73,7 @@ class CharacterTicker : public IdleObserver{
 
 		Torliste* tore=nullptr;
 		FormTriggerliste* trigger=nullptr;
+		SternteilTriggerListe* sternteil = nullptr;
 };
 
 #endif // CHARACTERTICKER_H

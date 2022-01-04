@@ -13,6 +13,7 @@
 
 #include "headers/characterticker.h"
 #include "headers/form_trigger.h"
+#include "headers/stern_trigger.h"
 #include "headers/tor.h"
 
 void setColor(Drawable* model,double r,double g,double b,double a,double shiny){
@@ -362,6 +363,7 @@ Node* initScene1()
    spieler->register_trigger(TriggerObj7);
    spieler->register_trigger(TriggerObj8);
 
+   //TORE registrieren
    Tor* TorObj1 = new Tor(wuerfelBlockadeTrans, 0.7f, 0);
    Tor* TorObj2 = new Tor(pyramideBlockadeTrans, 0.7f, 1);
    Tor* TorObj3 = new Tor(mondBlockadeTrans, 0.7f, 2);
@@ -372,6 +374,18 @@ Node* initScene1()
    spieler->register_tor(TorObj3);
    spieler->register_tor(TorObj4);
    spieler->register_tor(TorObj5);
+
+   //STERNTEILE registrieren
+   SternTrigger* SternteilObj1 = new SternTrigger(r3t1Trans, QVector3D(-37, 0.7, -44), bb);
+   SternTrigger* SternteilObj1 = new SternTrigger(r3t2Trans, QVector3D(-26.5, 0.7, -88), bb);
+   SternTrigger* SternteilObj1 = new SternTrigger(r3t3Trans, QVector3D(6, 0.7, -61), bb);
+   SternTrigger* SternteilObj1 = new SternTrigger(r3t4Trans, QVector3D(55.5, 0.7, -79.5), bb);
+   SternTrigger* SternteilObj1 = new SternTrigger(r3t5Trans, QVector3D(71.9, 0.7, -29.4), bb);
+   spieler->register_sternteil(SternteilObj1);
+   spieler->register_sternteil(SternteilObj2);
+   spieler->register_sternteil(SternteilObj3);
+   spieler->register_sternteil(SternteilObj4);
+   spieler->register_sternteil(SternteilObj5);
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //HIERACHIE
