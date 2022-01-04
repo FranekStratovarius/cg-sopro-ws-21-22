@@ -40,8 +40,8 @@ struct SchlussTriggerListe {
 };
 
 struct FarbTriggerListe {
-	FarbTrigger* sternteil;
-	FarbtTriggerListe* next;
+	FarbTrigger* farbe;
+	FarbTriggerListe* next;
 };
 
 // Klasse um unsere beiden Charaktere zu steuern

@@ -376,10 +376,10 @@ Node* initScene1()
 
    //STERNTEILE registrieren
    SternTrigger* SternteilObj1 = new SternTrigger(r3t1Trans, QVector3D(-37, 0.7, -44), bb);
-   SternTrigger* SternteilObj1 = new SternTrigger(r3t2Trans, QVector3D(-26.5, 0.7, -88), bb);
-   SternTrigger* SternteilObj1 = new SternTrigger(r3t3Trans, QVector3D(6, 0.7, -61), bb);
-   SternTrigger* SternteilObj1 = new SternTrigger(r3t4Trans, QVector3D(55.5, 0.7, -79.5), bb);
-   SternTrigger* SternteilObj1 = new SternTrigger(r3t5Trans, QVector3D(71.9, 0.7, -29.4), bb);
+   SternTrigger* SternteilObj2 = new SternTrigger(r3t2Trans, QVector3D(-26.5, 0.7, -88), bb);
+   SternTrigger* SternteilObj3 = new SternTrigger(r3t3Trans, QVector3D(6, 0.7, -61), bb);
+   SternTrigger* SternteilObj4 = new SternTrigger(r3t4Trans, QVector3D(55.5, 0.7, -79.5), bb);
+   SternTrigger* SternteilObj5 = new SternTrigger(r3t5Trans, QVector3D(71.9, 0.7, -29.4), bb);
    spieler->register_sternteil(SternteilObj1);
    spieler->register_sternteil(SternteilObj2);
    spieler->register_sternteil(SternteilObj3);
@@ -388,13 +388,13 @@ Node* initScene1()
 
    //FARBTRIGGER registrieren
    FarbTrigger* FarbObj1 = new FarbTrigger(r2_farbe1, QVector3D(-67.2, 0.7, -35), r2t1Trans, bb, 0);
-   FarbTrigger* FarbObj1 = new FarbTrigger(r2_farbe2, QVector3D(-63.5, 0.7, -46.5), r2t2Trans, bb, 1);
-   FarbTrigger* FarbObj1 = new FarbTrigger(r2_farbe3, QVector3D(-77.8, 0.7, -34.5), r2t3Trans, bb, 2);
+   FarbTrigger* FarbObj2 = new FarbTrigger(r2_farbe2, QVector3D(-63.5, 0.7, -46.5), r2t2Trans, bb, 1);
+   FarbTrigger* FarbObj3 = new FarbTrigger(r2_farbe3, QVector3D(-77.8, 0.7, -34.5), r2t3Trans, bb, 2);
 
    //SCHLUSSTRIGGER REGISTRIEREN
    SternTrigger* SchlussObj1 = new SternTrigger(r4t1Trans, QVector3D(29.1, 0.7, 27.3), bb);
-   SternTrigger* SchlussObj1 = new SternTrigger(r4t2Trans, QVector3D(49.5, 0.7, 44), bb);
-   SternTrigger* SchlussObj1 = new SternTrigger(r4t3Trans, QVector3D(61.8, 0.7, 42), bb);
+   SternTrigger* SchlussObj2 = new SternTrigger(r4t2Trans, QVector3D(49.5, 0.7, 44), bb);
+   SternTrigger* SchlussObj3 = new SternTrigger(r4t3Trans, QVector3D(61.8, 0.7, 42), bb);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 

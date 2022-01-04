@@ -146,13 +146,13 @@ void CharacterTicker::doIt(){
 				alleFarbenPassen = false;
 			}
 			sollFarbe++;
-			aktuelles_farbe = aktuelle_farbe->next;
+			aktuelle_farbe = aktuelle_farbe->next;
 		}
 		if (alleFarbenPassen == true) {
 			aktuelle_farbe = farbe;
 			while (aktuelle_farbe != nullptr) {
 				aktuelle_farbe->farbe->solved();
-				aktuelles_farbe = aktuelle_farbe->next;
+				aktuelle_farbe = aktuelle_farbe->next;
 			}
 			farbRaetselGeloest = true;
 			//TODO: Mondsichel-Pickup 1 transformieren hier
@@ -169,6 +169,7 @@ void CharacterTicker::doIt(){
 			//TODO: Stern-Pickup transformieren hier
 		}
 	}
+}
 
 void CharacterTicker::change_visibility(int idx){
 	for(int i=0;i<5;i++){
@@ -198,20 +199,20 @@ void CharacterTicker::register_trigger(FormTrigger* l_trigger) {
 	trigger = lokale_triggerliste;
 }
 
-void CharacterTicker::register_sternteil(SternTrigger* l_sternteil);
+void CharacterTicker::register_sternteil(SternTrigger* l_sternteil)
 {
-	SternteilTriggerliste* lokale_sternteiltriggerliste = new SternteilTriggerliste{ l_sternteil, sternteil; }
+	SternteilTriggerListe* lokale_sternteiltriggerliste = new SternteilTriggerListe{ l_sternteil, sternteil };
 	sternteil = lokale_sternteiltriggerliste;
 }
 
-void CharacterTicker::register_farbe(FarbTrigger* l_farbe);
+void CharacterTicker::register_farbe(FarbTrigger* l_farbe)
 {
-	FarbTriggerliste* lokale_farbtriggerliste = new FarbTriggerliste{ l_farbe, farbe; }
-	farbe = lokale_farbetriggerliste;
+	FarbTriggerListe* lokale_farbtriggerliste = new FarbTriggerListe{ l_farbe, farbe };
+	farbe = lokale_farbtriggerliste;
 }
 
-void CharacterTicker::register_schluss(SternTrigger* l_schluss);
+void CharacterTicker::register_schluss(SternTrigger* l_schluss)
 {
-	SchlussTriggerliste* lokale_schlusstriggerliste = new FarbTriggerliste{ l_schluss, schluss; }
+	SchlussTriggerListe* lokale_schlusstriggerliste = new SchlussTriggerListe{ l_schluss, schluss };
 	schluss = lokale_schlusstriggerliste;
 }
