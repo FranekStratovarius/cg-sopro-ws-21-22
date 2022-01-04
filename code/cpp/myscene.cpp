@@ -9,10 +9,22 @@
 #include "modeltransformation.h"
 #include "simplecube.h"
 #include "color.h"
+#include "sunlight.h"
 
 #include "headers/characterticker.h"
 #include "headers/form_trigger.h"
 #include "headers/tor.h"
+
+void setColor(Drawable* model,double r,double g,double b,double a,double shiny){
+	Material* m;
+    m = model->getProperty<Material>();
+	m->setDiffuse(r,g,b,a);
+	m->setAmbient(r,g,b,a);
+	m->setSpecular(r,g,b,a);
+	m->setShininess(8.);
+	model->setTransparent(false);
+	model->setShader(ShaderManager::getShader(":/shaders/my_phong.vert", ":/shaders/my_phong.frag"));
+}
 
 Node* initScene1();
 
@@ -43,6 +55,8 @@ Node* initScene1()
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
+	Color* c;
+
     //BODEN
     Drawable* boden = new Drawable(new TriangleMesh(":/models/level_static/Boden.obj"));
     Node* bodenNode = new Node(boden);
@@ -52,8 +66,9 @@ Node* initScene1()
     bodenInfo->setCollisionHull(CollisionHull::BoxAABB);
     bodenObject->setConstructionInfo(bodenInfo);
     bodenObject->registerPhysicObject();
-    Color* c = boden->getProperty<Color>();
-    c->setValue(0.5, 0.0, 0.3, 1.0);
+	setColor(boden,0.5,0.0,0.3,1.0,0.8);
+    //c = boden->getProperty<Color>();
+    //c->setValue(0.5, 0.0, 0.3, 1.0);
 
     //WAENDE
     Drawable* waende = new Drawable(new TriangleMesh(":/models/level_static/Grundwaende.obj"));
@@ -64,8 +79,9 @@ Node* initScene1()
     waendeInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     waendeObject->setConstructionInfo(waendeInfo);
     waendeObject->registerPhysicObject();
-    c = waende->getProperty<Color>();
-    c->setValue(0.3, 0.5, 0.7, 1.0);
+	setColor(waende,0.3,0.5,0.7,1.0,0.8);
+    //c = waende->getProperty<Color>();
+    //c->setValue(0.3, 0.5, 0.7, 1.0);
 
     //TORHINWEISE
     Drawable* hinweisWuerfel = new Drawable(new TriangleMesh(":/models/level_static/TorHinweisWuerfel.obj"));
@@ -432,6 +448,15 @@ Node* initScene1()
     mondBlockadeTransNode->addChild(mondBlockadeNode);
     sternBlockadeTransNode->addChild(sternBlockadeNode);
     endeBlockadeTransNode->addChild(endeBlockadeNode);
+
+		//sonnenlicht
+    SunLight* light = new SunLight;
+    light->setDiffuse(0.7, 0.7, 0.7);
+    light->setSpecular(0.6, 0.6, 0.6);
+    light->setAmbient(0.6, 0.6, 0.6);
+    light->turnOn();
+    Node *lightNode = new Node(light);
+	root->addChild(lightNode);
 
     return (root);
 }

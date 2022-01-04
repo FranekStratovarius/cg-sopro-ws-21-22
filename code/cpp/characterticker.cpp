@@ -7,12 +7,14 @@ CharacterTicker::CharacterTicker(Node* root,PhysicEngine* physics_engine):IdleOb
 
 	this->physics_engine=physics_engine;
 
-	shader_normal = ShaderManager::getShader(":/shaders/basic.vert", ":/shaders/basic.frag");
+	//shader_normal = ShaderManager::getShader(":/shaders/basic.vert", ":/shaders/basic.frag");
+	shader_normal = ShaderManager::getShader(":/shaders/my_phong.vert", ":/shaders/my_phong.frag");
 	shader_transparent = ShaderManager::getShader(":/shaders/basic.vert", ":/shaders/transparent.frag");
 
 	Color* c;
 	Geometry* g;
 	ModelTransformation* modelTransform;
+	Material* m;
 
 	models=new Drawable*[5];
 
@@ -28,8 +30,13 @@ CharacterTicker::CharacterTicker(Node* root,PhysicEngine* physics_engine):IdleOb
 	models[4]=new Drawable(g);
 
 	for(int i=0;i<5;i++){
-		c = models[i]->getProperty<Color>();
-		c->setValue(colors[i][0],colors[i][1],colors[i][2],colors[i][3]);
+		//c = models[i]->getProperty<Color>();
+		//c->setValue(colors[i][0],colors[i][1],colors[i][2],colors[i][3]);
+    	m = models[i]->getProperty<Material>();
+	    m->setDiffuse(colors[i][0],colors[i][1],colors[i][2],colors[i][3]);
+	    m->setAmbient(colors[i][0],colors[i][1],colors[i][2],colors[i][3]);
+	    m->setSpecular(colors[i][0],colors[i][1],colors[i][2],colors[i][3]);
+	    m->setShininess(8.);
 		models[i]->setTransparent(false);
 		models[i]->setShader(shader_normal);
 		//models[i]->setTransparent(true);
