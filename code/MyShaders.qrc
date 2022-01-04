@@ -3,6 +3,12 @@
         <file>shaders/basic.vert</file>
         <file>shaders/basic.frag</file>
         <file>shaders/transparent.frag</file>
+        <file>shaders/my_phong.vert</file>
+        <file>shaders/my_phong.frag</file>
+        <file>shaders/common.vert.inc</file>
+        <file>shaders/commonlight.vert.inc</file>
+        <file>shaders/commonlightmatdefs.inc</file>
+        <file>shaders/commonlightmodels.inc</file>
         <file>models/spieler_meshes/herz.obj</file>
         <file>models/spieler_meshes/mondsichel.obj</file>
         <file>models/spieler_meshes/pyramide.obj</file>

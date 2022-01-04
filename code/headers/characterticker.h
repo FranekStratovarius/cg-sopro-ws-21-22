@@ -14,16 +14,32 @@
 #include <QElapsedTimer>
 #include <qtimer.h>
 
+#include "tor.h"
+#include "form_trigger.h"
+
+struct Torliste{
+	Tor* tor;
+	Torliste* next;
+};
+
+struct FormTriggerliste{
+	FormTrigger* trigger;
+	FormTriggerliste* next;
+};
+
 // Klasse um unsere beiden Charaktere zu steuern
 class CharacterTicker : public IdleObserver{
 	public:
 		CharacterTicker(Node* root,PhysicEngine* physics_engine);
-		void doIt();	
+		void doIt();
+		void register_tor(Tor* tor);
+		void register_trigger(FormTrigger* trigger);
+
 	private:
 		void change_visibility(int idx);
 
 		DynamicCharacterWithCam* character;
-		int current_character=0;
+		int aktuelle_form=0;
 		// Timer für genaue Delta Zeitberechnung
 		QElapsedTimer m_Timer;
 		QTimer* a;
@@ -45,6 +61,9 @@ class CharacterTicker : public IdleObserver{
 
 		Shader* shader_normal;
 		Shader* shader_transparent;
+
+		Torliste* tore=nullptr;
+		FormTriggerliste* trigger=nullptr;
 };
 
 #endif // CHARACTERTICKER_H

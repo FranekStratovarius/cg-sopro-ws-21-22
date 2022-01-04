@@ -7,12 +7,14 @@ CharacterTicker::CharacterTicker(Node* root,PhysicEngine* physics_engine):IdleOb
 
 	this->physics_engine=physics_engine;
 
-	shader_normal = ShaderManager::getShader(":/shaders/basic.vert", ":/shaders/basic.frag");
+	//shader_normal = ShaderManager::getShader(":/shaders/basic.vert", ":/shaders/basic.frag");
+	shader_normal = ShaderManager::getShader(":/shaders/my_phong.vert", ":/shaders/my_phong.frag");
 	shader_transparent = ShaderManager::getShader(":/shaders/basic.vert", ":/shaders/transparent.frag");
 
 	Color* c;
 	Geometry* g;
 	ModelTransformation* modelTransform;
+	Material* m;
 
 	models=new Drawable*[5];
 
@@ -28,8 +30,13 @@ CharacterTicker::CharacterTicker(Node* root,PhysicEngine* physics_engine):IdleOb
 	models[4]=new Drawable(g);
 
 	for(int i=0;i<5;i++){
-		c = models[i]->getProperty<Color>();
-		c->setValue(colors[i][0],colors[i][1],colors[i][2],colors[i][3]);
+		//c = models[i]->getProperty<Color>();
+		//c->setValue(colors[i][0],colors[i][1],colors[i][2],colors[i][3]);
+    	m = models[i]->getProperty<Material>();
+	    m->setDiffuse(colors[i][0],colors[i][1],colors[i][2],colors[i][3]);
+	    m->setAmbient(colors[i][0],colors[i][1],colors[i][2],colors[i][3]);
+	    m->setSpecular(colors[i][0],colors[i][1],colors[i][2],colors[i][3]);
+	    m->setShininess(8.);
 		models[i]->setTransparent(false);
 		models[i]->setShader(shader_normal);
 		//models[i]->setTransparent(true);
@@ -80,23 +87,42 @@ void CharacterTicker::doIt(){
 	}
 
 	if(keyIn->isKeyPressed('1')){
-		current_character=0;
+		aktuelle_form=0;
 	}
 	if(keyIn->isKeyPressed('2')){
-		current_character=1;
+		aktuelle_form=1;
 	}
 	if(keyIn->isKeyPressed('3')){
-		current_character=2;
+		aktuelle_form=2;
 	}
 	if(keyIn->isKeyPressed('4')){
-		current_character=3;
+		aktuelle_form=3;
 	}
 	if(keyIn->isKeyPressed('5')){
-		current_character=4;
+		aktuelle_form=4;
 	}
 
 	character->moveCharacter(time, v_MoveFlagsDynCh);
-	change_visibility(current_character);
+	change_visibility(aktuelle_form);
+
+	//alle tore updaten
+	Torliste* aktuelles_tor=tore;
+	while(aktuelles_tor!=nullptr){
+		aktuelles_tor->tor->update(aktuelle_form);
+		aktuelles_tor=aktuelles_tor->next;
+	}
+
+	QVector3D position=character->getPosition3DVector();
+
+	//alle trigger updaten
+	FormTriggerliste* aktueller_trigger=trigger;
+	while(aktueller_trigger!=nullptr){
+		int form=aktueller_trigger->trigger->update(position);
+		if(form!=-1){	//falls brauchbare form zurückgegeben->form annehmen
+			aktuelle_form=form;
+		}
+		aktueller_trigger=aktueller_trigger->next;
+	}
 }
 
 void CharacterTicker::change_visibility(int idx){
@@ -116,3 +142,14 @@ void CharacterTicker::change_visibility(int idx){
 		}
 	}
 }
+
+void CharacterTicker::register_tor(Tor* tor){
+	Torliste* lokale_torliste=new Torliste{tor,tore};
+	tore=lokale_torliste;
+}
+
+void CharacterTicker::register_trigger(FormTrigger* l_trigger){
+	FormTriggerliste* lokale_triggerliste=new FormTriggerliste{l_trigger,trigger};
+	trigger=lokale_triggerliste;
+}
+

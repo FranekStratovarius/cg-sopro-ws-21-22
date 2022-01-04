@@ -9,15 +9,28 @@
 #include "modeltransformation.h"
 #include "simplecube.h"
 #include "color.h"
+#include "sunlight.h"
 
 #include "headers/characterticker.h"
+#include "headers/form_trigger.h"
+#include "headers/tor.h"
+
+void setColor(Drawable* model,double r,double g,double b,double a,double shiny){
+	Material* m;
+    m = model->getProperty<Material>();
+	m->setDiffuse(r,g,b,a);
+	m->setAmbient(r,g,b,a);
+	m->setSpecular(r,g,b,a);
+	m->setShininess(8.);
+	model->setTransparent(false);
+	model->setShader(ShaderManager::getShader(":/shaders/my_phong.vert", ":/shaders/my_phong.frag"));
+}
 
 Node* initScene1();
 
 void SceneManager::initScenes()
 {
 	PhysicAccessableCamera* cam = new PhysicAccessableCamera;
-
 	RenderingContext* myContext = new RenderingContext(cam);
 	unsigned int myContextNr = SceneManager::instance()->addContext(myContext);
 	unsigned int myScene = SceneManager::instance()->addScene(initScene1());
@@ -42,6 +55,8 @@ Node* initScene1()
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
+	Color* c;
+
     //BODEN
     Drawable* boden = new Drawable(new TriangleMesh(":/models/level_static/Boden.obj"));
     Node* bodenNode = new Node(boden);
@@ -51,8 +66,9 @@ Node* initScene1()
     bodenInfo->setCollisionHull(CollisionHull::BoxAABB);
     bodenObject->setConstructionInfo(bodenInfo);
     bodenObject->registerPhysicObject();
-    Color* c = boden->getProperty<Color>();
-    c->setValue(0.5, 0.0, 0.3, 1.0);
+	setColor(boden,0.5,0.0,0.3,1.0,0.8);
+    //c = boden->getProperty<Color>();
+    //c->setValue(0.5, 0.0, 0.3, 1.0);
 
     //WAENDE
     Drawable* waende = new Drawable(new TriangleMesh(":/models/level_static/Grundwaende.obj"));
@@ -63,8 +79,9 @@ Node* initScene1()
     waendeInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     waendeObject->setConstructionInfo(waendeInfo);
     waendeObject->registerPhysicObject();
-    c = waende->getProperty<Color>();
-    c->setValue(0.3, 0.5, 0.7, 1.0);
+	setColor(waende,0.3,0.5,0.7,1.0,0.8);
+    //c = waende->getProperty<Color>();
+    //c->setValue(0.3, 0.5, 0.7, 1.0);
 
     //TORHINWEISE
     Drawable* hinweisWuerfel = new Drawable(new TriangleMesh(":/models/level_static/TorHinweisWuerfel.obj"));
@@ -257,6 +274,7 @@ Node* initScene1()
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //BLOCKADEN
+
     Drawable* wuerfelBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Wuerfel.obj"));
     Node* wuerfelBlockadeNode = new Node(wuerfelBlockade);
     c = wuerfelBlockade->getProperty<Color>();
@@ -267,6 +285,8 @@ Node* initScene1()
     wuerfelInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     wuerfelBlockadeObject->setConstructionInfo(wuerfelInfo);
     wuerfelBlockadeObject->registerPhysicObject();
+    Transformation* wuerfelBlockadeTrans= new Transformation();
+    Node* wuerfelBlockadeTransNode = new Node(wuerfelBlockadeTrans);
 
     Drawable* pyramideBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Pyramide.obj"));
     Node* pyramideBlockadeNode = new Node(pyramideBlockade);
@@ -278,6 +298,8 @@ Node* initScene1()
     pyramideInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     pyramideBlockadeObject->setConstructionInfo(pyramideInfo);
     pyramideBlockadeObject->registerPhysicObject();
+    Transformation* pyramideBlockadeTrans = new Transformation();
+    Node* pyramideBlockadeTransNode = new Node(pyramideBlockadeTrans);
 
     Drawable* mondBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Mondsichel.obj"));
     Node* mondBlockadeNode = new Node(mondBlockade);
@@ -289,6 +311,8 @@ Node* initScene1()
     mondInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     mondBlockadeObject->setConstructionInfo(mondInfo);
     mondBlockadeObject->registerPhysicObject();
+    Transformation* mondBlockadeTrans = new Transformation();
+    Node* mondBlockadeTransNode = new Node(mondBlockadeTrans);
 
     Drawable* sternBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Stern.obj"));
     Node* sternBlockadeNode = new Node(sternBlockade);
@@ -300,6 +324,8 @@ Node* initScene1()
     sternInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     sternBlockadeObject->setConstructionInfo(sternInfo);
     sternBlockadeObject->registerPhysicObject();
+    Transformation* sternBlockadeTrans = new Transformation();
+    Node* sternBlockadeTransNode = new Node(sternBlockadeTrans);
 
     Drawable* endeBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Ende.obj"));
     Node* endeBlockadeNode = new Node(endeBlockade);
@@ -311,8 +337,41 @@ Node* initScene1()
     endeInfo->setCollisionHull(CollisionHull::BVHTriangleMesh);
     endeBlockadeObject->setConstructionInfo(endeInfo);
     endeBlockadeObject->registerPhysicObject();
+    Transformation* endeBlockadeTrans = new Transformation();
+    Node* endeBlockadeTransNode = new Node(endeBlockadeTrans);
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------ -
+    //FORM-TRIGGER Positionen zuweisen und registrieren beim Charakter + TOR-Trigger
 
+    float bb = 0.7f; //Halbe Seitenlänge des Bounding-Box-Würfels
+
+   FormTrigger* TriggerObj1 = new FormTrigger(QVector3D(68.9, 0.7, 27), 0, bb);
+   FormTrigger* TriggerObj2 = new FormTrigger(QVector3D(-58, 0.7, -1.3), 1, bb);
+   FormTrigger* TriggerObj3 = new FormTrigger(QVector3D(10.5, 0.7, -44), 1, bb);
+   FormTrigger* TriggerObj4 = new FormTrigger(QVector3D(-73, -10.7, -57), 2, bb);
+   FormTrigger* TriggerObj5 = new FormTrigger(QVector3D(27.8, 0.7, 42.7), 2, bb);
+   FormTrigger* TriggerObj6 = new FormTrigger(QVector3D(72, -10.7, -21), 3, bb);
+   FormTrigger* TriggerObj7 = new FormTrigger(QVector3D(38, 0.7, 27), 3, bb);
+   FormTrigger* TriggerObj8 = new FormTrigger(QVector3D(-18.5, 0.7, -59.5), 4, bb);
+   spieler->register_trigger(TriggerObj1);
+   spieler->register_trigger(TriggerObj2);
+   spieler->register_trigger(TriggerObj3);
+   spieler->register_trigger(TriggerObj4);
+   spieler->register_trigger(TriggerObj5);
+   spieler->register_trigger(TriggerObj6);
+   spieler->register_trigger(TriggerObj7);
+   spieler->register_trigger(TriggerObj8);
+
+   Tor* TorObj1 = new Tor(wuerfelBlockadeTrans, 0.7f, 0);
+   Tor* TorObj2 = new Tor(pyramideBlockadeTrans, 0.7f, 1);
+   Tor* TorObj3 = new Tor(mondBlockadeTrans, 0.7f, 2);
+   Tor* TorObj4 = new Tor(sternBlockadeTrans, 0.7f, 3);
+   Tor* TorObj5 = new Tor(endeBlockadeTrans, 0.7f, 4);
+   spieler->register_tor(TorObj1);
+   spieler->register_tor(TorObj2);
+   spieler->register_tor(TorObj3);
+   spieler->register_tor(TorObj4);
+   spieler->register_tor(TorObj5);
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //HIERACHIE
@@ -379,11 +438,25 @@ Node* initScene1()
     herzTriggerNode->addChild(herzTrigger);
 
         //Blockaden
-    root->addChild(wuerfelBlockadeNode);
-    root->addChild(pyramideBlockadeNode);
-    root->addChild(mondBlockadeNode);
-    root->addChild(sternBlockadeNode);
-    root->addChild(endeBlockadeNode);
+    root->addChild(wuerfelBlockadeTransNode);
+    root->addChild(pyramideBlockadeTransNode);
+    root->addChild(mondBlockadeTransNode);
+    root->addChild(sternBlockadeTransNode);
+    root->addChild(endeBlockadeTransNode);
+    wuerfelBlockadeTransNode->addChild(wuerfelBlockadeNode);
+    pyramideBlockadeTransNode->addChild(pyramideBlockadeNode);
+    mondBlockadeTransNode->addChild(mondBlockadeNode);
+    sternBlockadeTransNode->addChild(sternBlockadeNode);
+    endeBlockadeTransNode->addChild(endeBlockadeNode);
+
+		//sonnenlicht
+    SunLight* light = new SunLight;
+    light->setDiffuse(0.7, 0.7, 0.7);
+    light->setSpecular(0.6, 0.6, 0.6);
+    light->setAmbient(0.6, 0.6, 0.6);
+    light->turnOn();
+    Node *lightNode = new Node(light);
+	root->addChild(lightNode);
 
     return (root);
 }
