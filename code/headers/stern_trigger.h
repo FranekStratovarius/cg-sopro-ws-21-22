@@ -2,7 +2,7 @@
 #define STERN_TRIGGER_H
 class SternTrigger{
 	public:
-		SternTrigger(Transformation* node;  QVector3D pos, int bb) : sternteil_transform(node), sternteil_pos(pos), bbSize(bb), pickedUp(false) {};
+		SternTrigger(Transformation* node,  QVector3D pos, int bb) : sternteil_transform(node), sternteil_pos(pos), bbSize(bb), pickedUp(false) {};
 		int update(QVector3D spieler_pos){
 			if (pickedUp == false) {
 				if (spieler_pos.x() >= sternteil_pos.x() - bbSize && spieler_pos.x() <= sternteil_pos.x() + bbSize && spieler_pos.y() >= sternteil_pos.y() - bbSize && spieler_pos.y() <= sternteil_pos.y() + bbSize && spieler_pos.z() >= sternteil_pos.z() - bbSize && spieler_pos.z() <= sternteil_pos.z() + bbSize) {

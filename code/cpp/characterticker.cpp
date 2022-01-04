@@ -126,15 +126,49 @@ void CharacterTicker::doIt(){
 
 	//alle Sternteiltrigger updaten
 	SternteilTriggerListe* aktuelles_sternteil = sternteil;
-	while (aktuelles_sternteil != nullptr && sternteilRaetselgeloest == false) {
-		gesammelteSternteile += aktuelles_sternteil->trigger->update(position);
+	while (aktuelles_sternteil != nullptr && sternteilRaetselGeloest == false) {
+		gesammelteSternteile += aktuelles_sternteil->sternteil->update(position);
 		aktuelles_sternteil = aktuelles_sternteil->next;
 		if (gesammelteSternteile == 5) {
 			bool sternteilRaetselGeloest = true;
-			//Stern-Pickup transformieren hier
+			//TODO: Stern-Pickup transformieren hier
 		}
 	}
-}
+
+	//alle Farbtrigger updaten
+	if (farbRaetselGeloest == false) {
+		bool alleFarbenPassen = true;
+		int sollFarbe = 0;
+		FarbTriggerListe* aktuelle_farbe = farbe;
+		while (aktuelle_farbe != nullptr) {
+			int istFarbe = aktuelle_farbe->farbe->update(position);
+			if (istFarbe != sollFarbe) {
+				alleFarbenPassen = false;
+			}
+			sollFarbe++;
+			aktuelles_farbe = aktuelle_farbe->next;
+		}
+		if (alleFarbenPassen == true) {
+			aktuelle_farbe = farbe;
+			while (aktuelle_farbe != nullptr) {
+				aktuelle_farbe->farbe->solved();
+				aktuelles_farbe = aktuelle_farbe->next;
+			}
+			farbRaetselGeloest = true;
+			//TODO: Mondsichel-Pickup 1 transformieren hier
+		}
+	}
+
+	//alle Schlusstrigger updaten
+	SchlussTriggerListe* aktuell_schluss = schluss;
+	while (aktuell_schluss != nullptr && schlussRaetselGeloest == false) {
+		gesammelteBoxen += aktuell_schluss->schluss->update(position);
+		aktuell_schluss = aktuell_schluss->next;
+		if (gesammelteBoxen == 3) {
+			bool schlussRaetselGeloest = true;
+			//TODO: Stern-Pickup transformieren hier
+		}
+	}
 
 void CharacterTicker::change_visibility(int idx){
 	for(int i=0;i<5;i++){
@@ -159,12 +193,25 @@ void CharacterTicker::register_tor(Tor* tor){
 	tore=lokale_torliste;
 }
 
-void CharacterTicker::register_trigger(FormTrigger* l_trigger){
-	FormTriggerliste* lokale_triggerliste=new FormTriggerliste{l_trigger,trigger};
-	trigger=lokale_triggerliste;
+void CharacterTicker::register_trigger(FormTrigger* l_trigger) {
+	FormTriggerliste* lokale_triggerliste = new FormTriggerliste{ l_trigger,trigger };
+	trigger = lokale_triggerliste;
+}
 
 void CharacterTicker::register_sternteil(SternTrigger* l_sternteil);
 {
-	SternteilTriggerliste* lokale_sternteiltriggerliste = new SternteilTriggerliste{ l_sternteil, sternteil};
+	SternteilTriggerliste* lokale_sternteiltriggerliste = new SternteilTriggerliste{ l_sternteil, sternteil; }
 	sternteil = lokale_sternteiltriggerliste;
+}
+
+void CharacterTicker::register_farbe(FarbTrigger* l_farbe);
+{
+	FarbTriggerliste* lokale_farbtriggerliste = new FarbTriggerliste{ l_farbe, farbe; }
+	farbe = lokale_farbetriggerliste;
+}
+
+void CharacterTicker::register_schluss(SternTrigger* l_schluss);
+{
+	SchlussTriggerliste* lokale_schlusstriggerliste = new FarbTriggerliste{ l_schluss, schluss; }
+	schluss = lokale_schlusstriggerliste;
 }

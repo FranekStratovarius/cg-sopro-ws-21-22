@@ -17,6 +17,7 @@
 #include "tor.h"
 #include "form_trigger.h"
 #include "stern_trigger.h"
+#include "farb_trigger.h"
 
 struct Torliste{
 	Tor* tor;
@@ -33,6 +34,16 @@ struct SternteilTriggerListe {
 	SternteilTriggerListe* next;
 };
 
+struct SchlussTriggerListe {
+	SternTrigger* schluss;
+	SchlussTriggerListe* next;
+};
+
+struct FarbTriggerListe {
+	FarbTrigger* sternteil;
+	FarbtTriggerListe* next;
+};
+
 // Klasse um unsere beiden Charaktere zu steuern
 class CharacterTicker : public IdleObserver{
 	public:
@@ -41,6 +52,8 @@ class CharacterTicker : public IdleObserver{
 		void register_tor(Tor* tor);
 		void register_trigger(FormTrigger* trigger);
 		void register_sternteil(SternTrigger* sternteil);
+		void register_farbe(FarbTrigger* farbe);
+		void register_schluss(SternTrigger* schluss);
 
 	private:
 		void change_visibility(int idx);
@@ -48,7 +61,10 @@ class CharacterTicker : public IdleObserver{
 		DynamicCharacterWithCam* character;
 		int aktuelle_form = 0;
 		int gesammelteSternteile = 0;
+		int gesammelteBoxen = 0;
 		bool sternteilRaetselGeloest = false;
+		bool farbRaetselGeloest = false;
+		bool schlussRaetselGeloest = false;
 		// Timer für genaue Delta Zeitberechnung
 		QElapsedTimer m_Timer;
 		QTimer* a;
@@ -71,9 +87,11 @@ class CharacterTicker : public IdleObserver{
 		Shader* shader_normal;
 		Shader* shader_transparent;
 
-		Torliste* tore=nullptr;
-		FormTriggerliste* trigger=nullptr;
+		Torliste* tore = nullptr;
+		FormTriggerliste* trigger = nullptr;
 		SternteilTriggerListe* sternteil = nullptr;
+		FarbTriggerListe* farbe = nullptr;
+		SchlussTriggerListe* schluss = nullptr;
 };
 
 #endif // CHARACTERTICKER_H
