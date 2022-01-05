@@ -344,7 +344,7 @@ Node* initScene1()
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------ -
    //FORM-TRIGGER Positionen zuweisen und registrieren beim Charakter + TOR-Trigger
-   float bb = 0.7f; //Halbe Seitenlänge des Bounding-Box-Würfel
+   float bb = 1.0f; //Halbe Seitenlänge des Bounding-Box-Würfel
    FormTrigger* TriggerObj1 = new FormTrigger(QVector3D(68.9, 0.7, 27), 0, bb);
    FormTrigger* TriggerObj2 = new FormTrigger(QVector3D(-58, 0.7, -1.3), 1, bb);
    FormTrigger* TriggerObj3 = new FormTrigger(QVector3D(10.5, 0.7, -44), 1, bb);
@@ -390,11 +390,17 @@ Node* initScene1()
    FarbTrigger* FarbObj1 = new FarbTrigger(r2_farbe1, QVector3D(-67.2, 0.7, -35), r2t1Trans, bb, 0);
    FarbTrigger* FarbObj2 = new FarbTrigger(r2_farbe2, QVector3D(-63.5, 0.7, -46.5), r2t2Trans, bb, 1);
    FarbTrigger* FarbObj3 = new FarbTrigger(r2_farbe3, QVector3D(-77.8, 0.7, -34.5), r2t3Trans, bb, 2);
+   spieler->register_farbe(FarbObj1);
+   spieler->register_farbe(FarbObj2);
+   spieler->register_farbe(FarbObj3);
 
    //SCHLUSSTRIGGER REGISTRIEREN
    SternTrigger* SchlussObj1 = new SternTrigger(r4t1Trans, QVector3D(29.1, 0.7, 27.3), bb);
    SternTrigger* SchlussObj2 = new SternTrigger(r4t2Trans, QVector3D(49.5, 0.7, 44), bb);
    SternTrigger* SchlussObj3 = new SternTrigger(r4t3Trans, QVector3D(61.8, 0.7, 42), bb);
+   spieler->register_schluss(SchlussObj1);
+   spieler->register_schluss(SchlussObj2);
+   spieler->register_schluss(SchlussObj3);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 

@@ -102,6 +102,14 @@ void CharacterTicker::doIt(){
 		aktuelle_form=4;
 	}
 
+    if(keyIn->isKeyPressed('8')){
+        //--> Kamerawinkel soll 10° ins Minus gehen (nach oben zur Vogelperspektive), aber 2 Probleme!!!
+        //--> 1.) Werte abfragen ___ 2.) Kamera-Abstand (Radius)
+    }
+    if(keyIn->isKeyPressed('5')){
+        //--> Selbiges Problem!!!
+    }
+
 	character->moveCharacter(time, v_MoveFlagsDynCh);
 	change_visibility(aktuelle_form);
 
