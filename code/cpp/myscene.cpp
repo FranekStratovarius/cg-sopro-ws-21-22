@@ -13,6 +13,8 @@
 
 #include "headers/characterticker.h"
 #include "headers/form_trigger.h"
+#include "headers/stern_trigger.h"
+#include "headers/farb_trigger.h"
 #include "headers/tor.h"
 
 void setColor(Drawable* model,double r,double g,double b,double a,double shiny){
@@ -247,7 +249,7 @@ Node* initScene1()
     setColor(herzTriggerBox, 1.0, 1.0, 1.0, 1.0, 0.8);
     Node* herzTrigger = new Node(herzTriggerBox);
     Transformation* herzTriggerTrans = new Transformation();
-    herzTriggerTrans->translate(-18.5, 0.7, -59.5);
+    herzTriggerTrans->translate(-18.5, 0.7, 59.5);
     Node* herzTriggerNode = new Node(herzTriggerTrans);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -315,18 +317,16 @@ Node* initScene1()
     Node* endeBlockadeTransNode = new Node(endeBlockadeTrans);
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------ -
-    //FORM-TRIGGER Positionen zuweisen und registrieren beim Charakter + TOR-Trigger
-
-    float bb = 0.7f; //Halbe Seitenlänge des Bounding-Box-Würfels
-
+   //FORM-TRIGGER Positionen zuweisen und registrieren beim Charakter + TOR-Trigger
+   float bb = 1.0f; //Halbe Seitenlänge des Bounding-Box-Würfel
    FormTrigger* TriggerObj1 = new FormTrigger(QVector3D(68.9, 0.7, 27), 0, bb);
    FormTrigger* TriggerObj2 = new FormTrigger(QVector3D(-58, 0.7, -1.3), 1, bb);
-   FormTrigger* TriggerObj3 = new FormTrigger(QVector3D(10.5, 0.7, -44), 1, bb);
+   FormTrigger* TriggerObj3 = new FormTrigger(QVector3D(10.5, 0.7, 44), 1, bb);
    FormTrigger* TriggerObj4 = new FormTrigger(QVector3D(-73, -10.7, -57), 2, bb);
    FormTrigger* TriggerObj5 = new FormTrigger(QVector3D(27.8, 0.7, 42.7), 2, bb);
    FormTrigger* TriggerObj6 = new FormTrigger(QVector3D(72, -10.7, -21), 3, bb);
    FormTrigger* TriggerObj7 = new FormTrigger(QVector3D(38, 0.7, 27), 3, bb);
-   FormTrigger* TriggerObj8 = new FormTrigger(QVector3D(-18.5, 0.7, -59.5), 4, bb);
+   FormTrigger* TriggerObj8 = new FormTrigger(QVector3D(-18.5, 0.7, 59.5), 4, bb);
    spieler->register_trigger(TriggerObj1);
    spieler->register_trigger(TriggerObj2);
    spieler->register_trigger(TriggerObj3);
@@ -336,6 +336,7 @@ Node* initScene1()
    spieler->register_trigger(TriggerObj7);
    spieler->register_trigger(TriggerObj8);
 
+   //TORE registrieren
    Tor* TorObj1 = new Tor(wuerfelBlockadeTrans, 0.7f, 0);
    Tor* TorObj2 = new Tor(pyramideBlockadeTrans, 0.7f, 1);
    Tor* TorObj3 = new Tor(mondBlockadeTrans, 0.7f, 2);
@@ -346,6 +347,39 @@ Node* initScene1()
    spieler->register_tor(TorObj3);
    spieler->register_tor(TorObj4);
    spieler->register_tor(TorObj5);
+
+   //STERNTEILE registrieren
+   SternTrigger* SternteilObj1 = new SternTrigger(r3t1Trans, QVector3D(-37, 0.7, -44), bb);
+   SternTrigger* SternteilObj2 = new SternTrigger(r3t2Trans, QVector3D(-26.5, 0.7, -88), bb);
+   SternTrigger* SternteilObj3 = new SternTrigger(r3t3Trans, QVector3D(6, 0.7, -61), bb);
+   SternTrigger* SternteilObj4 = new SternTrigger(r3t4Trans, QVector3D(55.5, 0.7, -79.5), bb);
+   SternTrigger* SternteilObj5 = new SternTrigger(r3t5Trans, QVector3D(71.9, 0.7, -29.4), bb);
+   spieler->register_sternteil(SternteilObj1);
+   spieler->register_sternteil(SternteilObj2);
+   spieler->register_sternteil(SternteilObj3);
+   spieler->register_sternteil(SternteilObj4);
+   spieler->register_sternteil(SternteilObj5);
+
+   //FARBTRIGGER registrieren
+   FarbTrigger* FarbObj1 = new FarbTrigger(r2_farbe1, QVector3D(-67.2, 0.7, -35), r2t1Trans, bb, 0);
+   FarbTrigger* FarbObj2 = new FarbTrigger(r2_farbe2, QVector3D(-63.5, 0.7, -46.5), r2t2Trans, bb, 1);
+   FarbTrigger* FarbObj3 = new FarbTrigger(r2_farbe3, QVector3D(-77.8, 0.7, -34.5), r2t3Trans, bb, 2);
+   spieler->register_farbe(FarbObj1);
+   spieler->register_farbe(FarbObj2);
+   spieler->register_farbe(FarbObj3);
+
+   //SCHLUSSTRIGGER REGISTRIEREN
+   SternTrigger* SchlussObj1 = new SternTrigger(r4t1Trans, QVector3D(29.1, 0.7, 27.3), bb);
+   SternTrigger* SchlussObj2 = new SternTrigger(r4t2Trans, QVector3D(49.5, 0.7, 44), bb);
+   SternTrigger* SchlussObj3 = new SternTrigger(r4t3Trans, QVector3D(61.8, 0.7, 42), bb);
+   spieler->register_schluss(SchlussObj1);
+   spieler->register_schluss(SchlussObj2);
+   spieler->register_schluss(SchlussObj3);
+
+   //CHARAKTER Varibalen zuweisen
+   spieler->sternPickupTransform = sternTrigger1Trans;
+   spieler->mondPickupTransform = mondTrigger1Trans;
+   spieler->schlussBlockade = endeBlockadeTrans;
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //HIERACHIE
