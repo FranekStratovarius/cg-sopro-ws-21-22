@@ -174,7 +174,7 @@ void CharacterTicker::doIt(){
 		aktuell_schluss = aktuell_schluss->next;
 		if (gesammelteBoxen == 3) {
 			bool schlussRaetselGeloest = true;
-			endeBlockade->translate(0, -50, 0);
+			schlussBlockade->translate(0, -50, 0);
 		}
 	}
 }

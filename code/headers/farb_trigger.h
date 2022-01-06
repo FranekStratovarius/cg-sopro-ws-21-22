@@ -8,10 +8,10 @@ class FarbTrigger{
 				switch (color_counter)
 				{
 					case 0:
-					anmalobjekt->getProperty<Color>()->setValue(0.0, 0.1, 0.0, 1.0);
+					anmalobjekt->getProperty<Color>()->setValue(0.0, 1.0, 0.0, 1.0);
 					color_counter++; break;
 					case 1:
-					anmalobjekt->getProperty<Color>()->setValue(0.0, 0.0, 0.1, 1.0);
+					anmalobjekt->getProperty<Color>()->setValue(0.0, 0.0, 1.0, 1.0);
 					color_counter++; break;
 					case 2:
 					anmalobjekt->getProperty<Color>()->setValue(1.0, 0.0, 0.0, 1.0);
