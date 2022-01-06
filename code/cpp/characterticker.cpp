@@ -195,7 +195,7 @@ void CharacterTicker::change_visibility(int idx){
 			modelTransform = models[i]->getProperty<ModelTransformation>();
 			modelTransform->resetTrafo();
 			QVector3D position=character->getPosition3DVector();
-			modelTransform->translate(position.x(),position.y()-0.8f,position.z());
+			modelTransform->translate(position.x(),position.y()-0.45f,position.z());
 			modelTransform->rotate(character->getYRotationDegrees(),0.0f,1.0f,0.0f);
 		}else{
 			models[i]->setTransparent(true);
