@@ -55,6 +55,10 @@ class CharacterTicker : public IdleObserver{
 		void register_farbe(FarbTrigger* farbe);
 		void register_schluss(SternTrigger* schluss);
 
+		Transformation* sternPickupTransform;
+		Transformation* mondPickupTransform;
+		Transformation* schlussBlockade;
+
 	private:
 		void change_visibility(int idx);
 
@@ -65,6 +69,8 @@ class CharacterTicker : public IdleObserver{
 		bool sternteilRaetselGeloest = false;
 		bool farbRaetselGeloest = false;
 		bool schlussRaetselGeloest = false;
+
+
 		// Timer für genaue Delta Zeitberechnung
 		QElapsedTimer m_Timer;
 		QTimer* a;

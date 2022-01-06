@@ -270,7 +270,7 @@ Node* initScene1()
     c->setValue(1.0, 1.0, 1.0, 1.0);
     Node* herzTrigger = new Node(herzTriggerBox);
     Transformation* herzTriggerTrans = new Transformation();
-    herzTriggerTrans->translate(-18.5, 0.7, -59.5);
+    herzTriggerTrans->translate(-18.5, 0.7, 59.5);
     Node* herzTriggerNode = new Node(herzTriggerTrans);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -347,12 +347,12 @@ Node* initScene1()
    float bb = 1.0f; //Halbe Seitenlänge des Bounding-Box-Würfel
    FormTrigger* TriggerObj1 = new FormTrigger(QVector3D(68.9, 0.7, 27), 0, bb);
    FormTrigger* TriggerObj2 = new FormTrigger(QVector3D(-58, 0.7, -1.3), 1, bb);
-   FormTrigger* TriggerObj3 = new FormTrigger(QVector3D(10.5, 0.7, -44), 1, bb);
+   FormTrigger* TriggerObj3 = new FormTrigger(QVector3D(10.5, 0.7, 44), 1, bb);
    FormTrigger* TriggerObj4 = new FormTrigger(QVector3D(-73, -10.7, -57), 2, bb);
    FormTrigger* TriggerObj5 = new FormTrigger(QVector3D(27.8, 0.7, 42.7), 2, bb);
    FormTrigger* TriggerObj6 = new FormTrigger(QVector3D(72, -10.7, -21), 3, bb);
    FormTrigger* TriggerObj7 = new FormTrigger(QVector3D(38, 0.7, 27), 3, bb);
-   FormTrigger* TriggerObj8 = new FormTrigger(QVector3D(-18.5, 0.7, -59.5), 4, bb);
+   FormTrigger* TriggerObj8 = new FormTrigger(QVector3D(-18.5, 0.7, 59.5), 4, bb);
    spieler->register_trigger(TriggerObj1);
    spieler->register_trigger(TriggerObj2);
    spieler->register_trigger(TriggerObj3);
@@ -402,6 +402,10 @@ Node* initScene1()
    spieler->register_schluss(SchlussObj2);
    spieler->register_schluss(SchlussObj3);
 
+   //CHARAKTER Varibalen zuweisen
+   spieler->sternPickupTransform = sternTrigger1Trans;
+   spieler->mondPickupTransform = mondTrigger1Trans;
+   spieler->schlussBlockade = endeBlockadeTrans;
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //HIERACHIE
