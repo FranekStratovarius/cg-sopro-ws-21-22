@@ -40,6 +40,9 @@ class CharacterTicker : public IdleObserver{
 
 		DynamicCharacterWithCam* character;
 		int aktuelle_form=0;
+		float camera_speed=2.0f;
+		float camera_angle=-50.0f;
+		float camera_height=7.0f;
 		// Timer für genaue Delta Zeitberechnung
 		QElapsedTimer m_Timer;
 		QTimer* a;

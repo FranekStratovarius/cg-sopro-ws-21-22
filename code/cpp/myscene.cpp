@@ -430,7 +430,8 @@ Node* initScene1()
     light->setAmbient(0.6, 0.6, 0.6);
     light->turnOn();
     Transformation* lightTransform = new Transformation();
-    lightTransform->rotate(30, 1, 1, 1);
+    lightTransform->rotate(30, 0, 1, 0);
+    lightTransform->rotate(-30, 1, 0, 0);
     Node* lightTransformNode = new Node(lightTransform);
     Node *lightNode = new Node(light);
     root->addChild(lightTransformNode);

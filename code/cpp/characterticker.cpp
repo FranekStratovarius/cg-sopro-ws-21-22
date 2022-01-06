@@ -46,7 +46,7 @@ CharacterTicker::CharacterTicker(Node* root,PhysicEngine* physics_engine):IdleOb
 		root->addChild(new Node(models[i]));
 	}
 
-	player_model=new Drawable(new SimpleCube(1.0,1.0,1.0));
+	player_model=new Drawable(new SimpleCube(0.9,0.9,0.9));
 	modelTransform=player_model->getProperty<ModelTransformation>();
     modelTransform->translate(0.f, 0.6f, 0.f);
 	player_model->setTransparent(true);
@@ -56,8 +56,8 @@ CharacterTicker::CharacterTicker(Node* root,PhysicEngine* physics_engine):IdleOb
 	c->setValue(1.0,1.0,0.0,1.0);
 	character = physics_engine->createNewDynamicCharacterWithCam(player_model);
 	character->setCam(dynamic_cast<PhysicAccessableCamera*>(SceneManager::instance()->getActiveContext()->getCamera()));
-    character->setRelativeCamPosition(0.f, 7.f, 5.f);
-    character->setUpDownView(-50.0f);
+    character->setRelativeCamPosition(0.f, camera_height, 5.f);
+    character->setUpDownView(camera_angle);
 	player_model->getPhysicObject()->registerPhysicObject();
 
 	change_visibility(0);
@@ -85,6 +85,16 @@ void CharacterTicker::doIt(){
 	if (keyIn->isKeyPressed('d')){
 		v_MoveFlagsDynCh |= MovementFlag::TurnRight;
 	}
+	if (keyIn->isKeyPressed('q')){
+		camera_angle+=0.1f*camera_speed;
+		camera_height-=0.013f*camera_speed;
+	}
+	if (keyIn->isKeyPressed('e')){
+		camera_angle-=0.1f*camera_speed;
+		camera_height+=0.013f*camera_speed;
+	}
+    character->setUpDownView(camera_angle);
+    character->setRelativeCamPosition(0.f, camera_height, 5.f);
 
 	if(keyIn->isKeyPressed('1')){
 		aktuelle_form=0;
@@ -134,7 +144,7 @@ void CharacterTicker::change_visibility(int idx){
 			modelTransform = models[i]->getProperty<ModelTransformation>();
 			modelTransform->resetTrafo();
 			QVector3D position=character->getPosition3DVector();
-			modelTransform->translate(position.x(),position.y()-0.5f,position.z());
+			modelTransform->translate(position.x(),position.y()-0.8f,position.z());
 			modelTransform->rotate(character->getYRotationDegrees(),0.0f,1.0f,0.0f);
 		}else{
 			models[i]->setTransparent(true);
