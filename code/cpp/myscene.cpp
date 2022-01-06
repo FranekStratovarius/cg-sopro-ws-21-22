@@ -68,9 +68,7 @@ Node* initScene1()
     bodenInfo->setCollisionHull(CollisionHull::BoxAABB);
     bodenObject->setConstructionInfo(bodenInfo);
     bodenObject->registerPhysicObject();
-	setColor(boden,0.5,0.0,0.3,1.0,0.8);
-    //c = boden->getProperty<Color>();
-    //c->setValue(0.5, 0.0, 0.3, 1.0);
+    setColor(boden, 0.5, 0.0, 0.3, 1.0, 0.8);
 
     //WAENDE
     Drawable* waende = new Drawable(new TriangleMesh(":/models/level_static/Grundwaende.obj"));
@@ -82,29 +80,23 @@ Node* initScene1()
     waendeObject->setConstructionInfo(waendeInfo);
     waendeObject->registerPhysicObject();
 	setColor(waende,0.3,0.5,0.7,1.0,0.8);
-    //c = waende->getProperty<Color>();
-    //c->setValue(0.3, 0.5, 0.7, 1.0);
 
     //TORHINWEISE
     Drawable* hinweisWuerfel = new Drawable(new TriangleMesh(":/models/level_static/TorHinweisWuerfel.obj"));
     Node* hWNode = new Node(hinweisWuerfel);
-    c = hinweisWuerfel->getProperty<Color>();
-    c->setValue(0.0, 1.0, 0.0, 1.0);
+    setColor(hinweisWuerfel, 0.0, 1.0, 0.0, 1.0, 0.8);
 
     Drawable* hinweisPyramide = new Drawable(new TriangleMesh(":/models/level_static/TorHinweisPyramide.obj"));
     Node* hPNode = new Node(hinweisPyramide);
-    c = hinweisPyramide->getProperty<Color>();
-    c->setValue(0.0, 0.0, 1.0, 1.0);
+    setColor(hinweisPyramide, 0.0, 0.0, 1.0, 1.0, 0.8);
 
     Drawable* hinweisMondsichel = new Drawable(new TriangleMesh(":/models/level_static/TorHinweisMond.obj"));
     Node* hMNode = new Node(hinweisMondsichel);
-    c = hinweisMondsichel->getProperty<Color>();
-    c->setValue(0.7, 0.7, 0.7, 1.0);
+    setColor(hinweisMondsichel, 0.7, 0.7, 0.7, 1.0, 0.8);
 
     Drawable* hinweisStern = new Drawable(new TriangleMesh(":/models/level_static/TorHinweisStern.obj"));
     Node* hSNode = new Node(hinweisStern);
-    c = hinweisStern->getProperty<Color>();
-    c->setValue(1.0, 1.0, 0.0, 1.0);
+    setColor(hinweisStern, 1.0, 1.0, 0.0, 1.0, 0.8);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -112,39 +104,32 @@ Node* initScene1()
         //Statisch, farblich änderbar
     Drawable* r2_farbe1 = new Drawable(new TriangleMesh(":/models/R2/R2_Farbobjekt1.obj"));
     Node* r2fo1Node = new Node(r2_farbe1);
-    c = r2_farbe1->getProperty<Color>();
-    c->setValue(1.0, 0.0, 0.0, 1.0);
+    setColor(r2_farbe1, 0.0, 1.0, 0.0, 1.0, 0.8);
 
     Drawable* r2_farbe2 = new Drawable(new TriangleMesh(":/models/R2/R2_Farbobjekt2.obj"));
     Node* r2fo2Node = new Node(r2_farbe2);
-    c = r2_farbe2->getProperty<Color>();
-    c->setValue(0.0, 1.0, 0.0, 1.0);
+    setColor(r2_farbe2, 0.0, 0.0, 1.0, 1.0, 0.8);
 
     Drawable* r2_farbe3 = new Drawable(new TriangleMesh(":/models/R2/R2_Farbobjekt3.obj"));
     Node* r2fo3Node = new Node(r2_farbe3);
-    c = r2_farbe3->getProperty<Color>();
-    c->setValue(0.0, 0.0, 1.0, 1.0);
+    setColor(r2_farbe3, 1.0, 0.0, 0.0, 1.0, 0.8);
 
         //Statisch
     Drawable* r2_static1 = new Drawable(new TriangleMesh(":/models/R2/R2_Vorgabe1_Rot.obj"));
     Node* r2s1 = new Node(r2_static1);
-    c = r2_static1->getProperty<Color>();
-    c->setValue(1.0, 0.0, 0.0, 1.0);
+    setColor(r2_static1, 1.0, 0.0, 0.0, 1.0, 0.8);
 
     Drawable* r2_static2 = new Drawable(new TriangleMesh(":/models/R2/R2_Vorgabe2_Gruen.obj"));
     Node* r2s2 = new Node(r2_static2);
-    c = r2_static2->getProperty<Color>();
-    c->setValue(0.0, 1.0, 0.0, 1.0);
+    setColor(r2_static2, 0.0, 1.0, 0.0, 1.0, 0.8);
 
     Drawable* r2_static3 = new Drawable(new TriangleMesh(":/models/R2/R2_Vorgabe3_Blau.obj"));
     Node* r2s3 = new Node(r2_static3);
-    c = r2_static3->getProperty<Color>();
-    c->setValue(0.0, 0.0, 1.0, 1.0);
+    setColor(r2_static3, 0.0, 0.0, 1.0, 1.0, 0.8);
 
         //Trigger
     Drawable* triggerBox = new Drawable(new TriangleMesh(":/models/R2/TriggerBox.obj"));
-    c = triggerBox->getProperty<Color>();
-    c->setValue(1.0, 1.0, 1.0, 1.0);
+    setColor(triggerBox, 1.0, 1.0, 1.0, 1.0, 0.8);
     Node* r2t1 = new Node(triggerBox);
     Transformation* r2t1Trans = new Transformation();
     r2t1Trans->translate(-67.2, 0.7, -35);
@@ -164,8 +149,7 @@ Node* initScene1()
 
     //RAETSEL III
     Drawable* sternteil = new Drawable(new TriangleMesh(":/models/R3/Sternenteil.obj"));
-    c = sternteil->getProperty<Color>();
-    c->setValue(1.0, 1.0, 0.0, 1.0);
+    setColor(sternteil, 1.0, 1.0, 0.0, 1.0, 0.8);
     Node* r3t1 = new Node(sternteil);
     Transformation* r3t1Trans = new Transformation();
     r3t1Trans->translate(-37, 0.7, -44);
@@ -215,8 +199,7 @@ Node* initScene1()
     //FORMTRIGGER
         //Wuerfel
     Drawable* wuerfelTriggerBox = new Drawable(new TriangleMesh(":/models/form_trigger/Wuerfelform_Trigger.obj"));
-    c = wuerfelTriggerBox->getProperty<Color>();
-    c->setValue(1.0, 1.0, 1.0, 1.0);
+    setColor(wuerfelTriggerBox, 1.0, 1.0, 1.0, 1.0, 0.8);
     Node* wuerfelTrigger = new Node(wuerfelTriggerBox);
     Transformation* wuerfelTriggerTrans = new Transformation();
     wuerfelTriggerTrans->translate(68.9, 0.7, 27);
@@ -224,8 +207,7 @@ Node* initScene1()
 
         //Pyramide
     Drawable* pyramideTriggerBox = new Drawable(new TriangleMesh(":/models/form_trigger/Pyramideform_Trigger.obj"));
-    c = pyramideTriggerBox->getProperty<Color>();
-    c->setValue(1.0, 1.0, 1.0, 1.0);
+    setColor(pyramideTriggerBox, 1.0, 1.0, 1.0, 1.0, 0.8);
     Node* pyramideTrigger1 = new Node(pyramideTriggerBox);
     Transformation* pyramideTrigger1Trans = new Transformation();
     pyramideTrigger1Trans->translate(-58, 0.7, -1.3);
@@ -238,8 +220,7 @@ Node* initScene1()
 
         //Mondsichel
     Drawable* mondTriggerBox = new Drawable(new TriangleMesh(":/models/form_trigger/Mondsichelform_Trigger.obj"));
-    c = mondTriggerBox->getProperty<Color>();
-    c->setValue(1.0, 1.0, 1.0, 1.0);
+    setColor(mondTriggerBox, 1.0, 1.0, 1.0, 1.0, 0.8);
     Node* mondTrigger1 = new Node(mondTriggerBox);
     Transformation* mondTrigger1Trans = new Transformation();
     mondTrigger1Trans->translate(-73, -10.7, -57);
@@ -252,8 +233,7 @@ Node* initScene1()
 
         //Stern
     Drawable* sternTriggerBox = new Drawable(new TriangleMesh(":/models/form_trigger/Sternform_Trigger.obj"));
-    c = sternTriggerBox->getProperty<Color>();
-    c->setValue(1.0, 1.0, 1.0, 1.0);
+    setColor(sternTriggerBox, 1.0, 1.0, 1.0, 1.0, 0.8);
     Node* sternTrigger1 = new Node(sternTriggerBox);
     Transformation* sternTrigger1Trans = new Transformation();
     sternTrigger1Trans->translate(72, -10.7, -21);
@@ -266,8 +246,7 @@ Node* initScene1()
 
         //Herz
     Drawable* herzTriggerBox = new Drawable(new TriangleMesh(":/models/form_trigger/Herzform_Trigger.obj"));
-    c = herzTriggerBox->getProperty<Color>();
-    c->setValue(1.0, 1.0, 1.0, 1.0);
+    setColor(herzTriggerBox, 1.0, 1.0, 1.0, 1.0, 0.8);
     Node* herzTrigger = new Node(herzTriggerBox);
     Transformation* herzTriggerTrans = new Transformation();
     herzTriggerTrans->translate(-18.5, 0.7, 59.5);
@@ -279,8 +258,7 @@ Node* initScene1()
 
     Drawable* wuerfelBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Wuerfel.obj"));
     Node* wuerfelBlockadeNode = new Node(wuerfelBlockade);
-    c = wuerfelBlockade->getProperty<Color>();
-    c->setValue(0.1, 0.1, 0.1, 1.0);
+    setColor(wuerfelBlockade, 0.1, 0.1, 0.1, 1.0, 0.8);
     wuerfelBlockade->setStaticGeometry(true);
     PhysicObject* wuerfelBlockadeObject = v_PhysicEngine->createNewPhysicObject(wuerfelBlockade);
     PhysicObjectConstructionInfo* wuerfelInfo = new PhysicObjectConstructionInfo();
@@ -292,8 +270,7 @@ Node* initScene1()
 
     Drawable* pyramideBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Pyramide.obj"));
     Node* pyramideBlockadeNode = new Node(pyramideBlockade);
-    c = pyramideBlockade->getProperty<Color>();
-    c->setValue(0.1, 0.1, 0.1, 1.0);
+    setColor(pyramideBlockade, 0.1, 0.1, 0.1, 1.0, 0.8);
     pyramideBlockade->setStaticGeometry(true);
     PhysicObject* pyramideBlockadeObject = v_PhysicEngine->createNewPhysicObject(pyramideBlockade);
     PhysicObjectConstructionInfo* pyramideInfo = new PhysicObjectConstructionInfo();
@@ -305,8 +282,7 @@ Node* initScene1()
 
     Drawable* mondBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Mondsichel.obj"));
     Node* mondBlockadeNode = new Node(mondBlockade);
-    c = mondBlockade->getProperty<Color>();
-    c->setValue(0.1, 0.1, 0.1, 1.0);
+    setColor(mondBlockade, 0.1, 0.1, 0.1, 1.0, 0.8);
     mondBlockade->setStaticGeometry(true);
     PhysicObject* mondBlockadeObject = v_PhysicEngine->createNewPhysicObject(mondBlockade);
     PhysicObjectConstructionInfo* mondInfo = new PhysicObjectConstructionInfo();
@@ -318,8 +294,7 @@ Node* initScene1()
 
     Drawable* sternBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Stern.obj"));
     Node* sternBlockadeNode = new Node(sternBlockade);
-    c = sternBlockade->getProperty<Color>();
-    c->setValue(0.1, 0.1, 0.1, 1.0);
+    setColor(sternBlockade, 0.1, 0.1, 0.1, 1.0, 0.8);
     sternBlockade->setStaticGeometry(true);
     PhysicObject* sternBlockadeObject = v_PhysicEngine->createNewPhysicObject(sternBlockade);
     PhysicObjectConstructionInfo* sternInfo = new PhysicObjectConstructionInfo();
@@ -331,8 +306,7 @@ Node* initScene1()
 
     Drawable* endeBlockade = new Drawable(new TriangleMesh(":/models/blockaden/Blockade_Ende.obj"));
     Node* endeBlockadeNode = new Node(endeBlockade);
-    c = endeBlockade->getProperty<Color>();
-    c->setValue(0.1, 0.1, 0.1, 1.0);
+    setColor(endeBlockade, 0.3, 0.3, 0.3, 1.0, 0.8);
     endeBlockade->setStaticGeometry(true);
     PhysicObject* endeBlockadeObject = v_PhysicEngine->createNewPhysicObject(endeBlockade);
     PhysicObjectConstructionInfo* endeInfo = new PhysicObjectConstructionInfo();
@@ -489,8 +463,13 @@ Node* initScene1()
     light->setSpecular(0.6, 0.6, 0.6);
     light->setAmbient(0.6, 0.6, 0.6);
     light->turnOn();
+    Transformation* lightTransform = new Transformation();
+    lightTransform->rotate(30, 0, 1, 0);
+    lightTransform->rotate(-30, 1, 0, 0);
+    Node* lightTransformNode = new Node(lightTransform);
     Node *lightNode = new Node(light);
-	root->addChild(lightNode);
+    root->addChild(lightTransformNode);
+    lightTransformNode->addChild(lightNode);
 
     return (root);
 }
