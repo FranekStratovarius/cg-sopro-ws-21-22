@@ -71,7 +71,6 @@ class CharacterTicker : public IdleObserver{
 		bool farbRaetselGeloest = false;
 		bool schlussRaetselGeloest = false;
   
-		int aktuelle_form=0;
 		float camera_speed=2.0f;
 		float camera_angle=-50.0f;
 		float camera_height=7.0f;
