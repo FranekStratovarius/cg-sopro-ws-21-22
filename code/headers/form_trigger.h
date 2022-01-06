@@ -9,6 +9,9 @@ class FormTrigger{
 			}
 			return -1;
 		};
+		void translate(float x,float y,float z){
+			form_pos=QVector3D(form_pos.x()+x,form_pos.y()+y,form_pos.z()+z);
+		}
 	private:
 		int bbSize; //Ausdehnung der Bounding Box
 		int form;

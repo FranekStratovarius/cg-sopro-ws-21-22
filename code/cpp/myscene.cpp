@@ -104,7 +104,7 @@ Node* initScene1()
         //Statisch, farblich änderbar
     Drawable* r2_farbe1 = new Drawable(new TriangleMesh(":/models/R2/R2_Farbobjekt1.obj"));
     Node* r2fo1Node = new Node(r2_farbe1);
-    setColor(r2_farbe1, 0.0, 1.0, 0.0, 1.0, 0.8);
+    setColor(r2_farbe1, 0.0, 0.0, 1.0, 1.0, 0.8);
 
     Drawable* r2_farbe2 = new Drawable(new TriangleMesh(":/models/R2/R2_Farbobjekt2.obj"));
     Node* r2fo2Node = new Node(r2_farbe2);
@@ -331,8 +331,10 @@ Node* initScene1()
    spieler->register_trigger(TriggerObj2);
    spieler->register_trigger(TriggerObj3);
    spieler->register_trigger(TriggerObj4);
+   spieler->mondtrigger=TriggerObj4;
    spieler->register_trigger(TriggerObj5);
    spieler->register_trigger(TriggerObj6);
+   spieler->sterntrigger=TriggerObj6;
    spieler->register_trigger(TriggerObj7);
    spieler->register_trigger(TriggerObj8);
 
@@ -361,12 +363,12 @@ Node* initScene1()
    spieler->register_sternteil(SternteilObj5);
 
    //FARBTRIGGER registrieren
-   FarbTrigger* FarbObj1 = new FarbTrigger(r2_farbe1, QVector3D(-67.2, 0.7, -35), r2t1Trans, bb, 0);
-   FarbTrigger* FarbObj2 = new FarbTrigger(r2_farbe2, QVector3D(-63.5, 0.7, -46.5), r2t2Trans, bb, 1);
-   FarbTrigger* FarbObj3 = new FarbTrigger(r2_farbe3, QVector3D(-77.8, 0.7, -34.5), r2t3Trans, bb, 2);
-   spieler->register_farbe(FarbObj1);
-   spieler->register_farbe(FarbObj2);
+   FarbTrigger* FarbObj1 = new FarbTrigger(r2_farbe1, QVector3D(-67.2, 0.7, -35), r2t1Trans, bb, 2);
+   FarbTrigger* FarbObj2 = new FarbTrigger(r2_farbe2, QVector3D(-63.5, 0.7, -46.5), r2t2Trans, bb, 2);
+   FarbTrigger* FarbObj3 = new FarbTrigger(r2_farbe3, QVector3D(-77.8, 0.7, -34.5), r2t3Trans, bb, 0);
    spieler->register_farbe(FarbObj3);
+   spieler->register_farbe(FarbObj2);
+   spieler->register_farbe(FarbObj1);
 
    //SCHLUSSTRIGGER REGISTRIEREN
    SternTrigger* SchlussObj1 = new SternTrigger(r4t1Trans, QVector3D(29.1, 0.7, 27.3), bb);

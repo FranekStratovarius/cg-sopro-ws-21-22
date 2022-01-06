@@ -135,13 +135,17 @@ void CharacterTicker::doIt(){
 	}
 
 	//alle Sternteiltrigger updaten
-	SternteilTriggerListe* aktuelles_sternteil = sternteil;
-	while (aktuelles_sternteil != nullptr && sternteilRaetselGeloest == false) {
-		gesammelteSternteile += aktuelles_sternteil->sternteil->update(position);
-		aktuelles_sternteil = aktuelles_sternteil->next;
+	if(!sternteilRaetselGeloest){
+		gesammelteSternteile=0;
+		SternteilTriggerListe* aktuelles_sternteil = sternteil;
+		while (aktuelles_sternteil != nullptr) {
+			gesammelteSternteile += aktuelles_sternteil->sternteil->update(position);
+			aktuelles_sternteil = aktuelles_sternteil->next;
+		}
 		if (gesammelteSternteile == 5) {
-            sternteilRaetselGeloest = true;
-			sternPickupTransform->translate(0, 10, 0);
+			sternteilRaetselGeloest = true;
+			sternPickupTransform->translate(0, 11, 0);
+			sterntrigger->translate(0,11,0);
 		}
 	}
 
@@ -165,7 +169,8 @@ void CharacterTicker::doIt(){
 				aktuelle_farbe = aktuelle_farbe->next;
 			}
 			farbRaetselGeloest = true;
-			mondPickupTransform->translate(0, 10, 0);
+			mondPickupTransform->translate(0, 11, 0);
+			mondtrigger->translate(0,11,0);
 		}
 	}
 

@@ -59,6 +59,9 @@ class CharacterTicker : public IdleObserver{
 		Transformation* mondPickupTransform;
 		Transformation* schlussBlockade;
 
+		FormTrigger* mondtrigger;
+		FormTrigger* sterntrigger;
+
 	private:
 		void change_visibility(int idx);
 
