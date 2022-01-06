@@ -139,7 +139,7 @@ void CharacterTicker::doIt(){
 		aktuelles_sternteil = aktuelles_sternteil->next;
 		if (gesammelteSternteile == 5) {
 			bool sternteilRaetselGeloest = true;
-			//TODO: Stern-Pickup transformieren hier
+			sternPickupTransform->translate(0, 10, 0);
 		}
 	}
 
@@ -163,7 +163,7 @@ void CharacterTicker::doIt(){
 				aktuelle_farbe = aktuelle_farbe->next;
 			}
 			farbRaetselGeloest = true;
-			//TODO: Mondsichel-Pickup 1 transformieren hier
+			mondPickupTransform->translate(0, 10, 0);
 		}
 	}
 
@@ -174,7 +174,7 @@ void CharacterTicker::doIt(){
 		aktuell_schluss = aktuell_schluss->next;
 		if (gesammelteBoxen == 3) {
 			bool schlussRaetselGeloest = true;
-			//TODO: Stern-Pickup transformieren hier
+			endeBlockade->translate(0, -50, 0);
 		}
 	}
 }
